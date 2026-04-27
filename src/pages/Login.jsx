@@ -1,4 +1,5 @@
 import LoginForm from "../components/LoginForm";
+import Navbar from "../components/Navbar";
 
 function Login() {
   function handleSubmit(e) {
@@ -8,6 +9,10 @@ function Login() {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-linear-to-br from-surface via-primary-50 to-secondary-100 px-6 py-10">
+      <div className="fixed top-0 left-0 w-full z-50">
+        <Navbar />
+      </div>
+
       <div className="absolute inset-0">
         <div className="absolute -left-12 top-16 h-48 w-48 rounded-full bg-primary-200/50 blur-3xl" />
         <div className="absolute right-0 top-0 h-64 w-64 rounded-full bg-secondary-200/60 blur-3xl" />
@@ -23,11 +28,11 @@ function Login() {
             <h2 className="text-5xl font-bold leading-tight text-ink-900">
               Keep lessons, students, and teaching flow in one calm place.
             </h2>
-            <p className="mt-6 text-lg leading-8 text-ink-600">
+            {/* <p className="mt-6 text-lg leading-8 text-ink-600">
               A focused teacher dashboard should feel clear and reliable. This
               sign-in space now leans into that with softer surfaces, stronger
               contrast, and a friendlier blue academic tone.
-            </p>
+            </p> */}
             <div className="mt-8 flex gap-4">
               <div className="rounded-2xl border border-white/70 bg-white/70 px-5 py-4 text-sm text-ink-600 backdrop-blur-sm">
                 Organized course access

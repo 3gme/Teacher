@@ -1,4 +1,5 @@
 import LoginForm from "../components/LoginForm";
+import Navbar from "../components/Navbar";
 
 function Register() {
   function handleSubmit(e) {
@@ -8,6 +9,10 @@ function Register() {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-linear-to-br from-secondary-50 via-surface to-primary-100 px-6 py-10">
+      <div className="fixed top-0 left-0 w-full z-50">
+        <Navbar />
+      </div>
+
       <div className="absolute inset-0">
         <div className="absolute left-0 top-0 h-72 w-72 rounded-full bg-secondary-200/55 blur-3xl" />
         <div className="absolute bottom-0 right-10 h-64 w-64 rounded-full bg-primary-200/55 blur-3xl" />
@@ -27,7 +32,7 @@ function Register() {
             <h2 className="text-4xl font-bold leading-tight text-ink-900 md:text-5xl">
               Build your teaching hub with a bright, welcoming start.
             </h2>
-            <p className="mt-6 text-lg leading-8 text-ink-600">
+            {/* <p className="mt-6 text-lg leading-8 text-ink-600">
               The register page now mirrors the same classroom-friendly blue
               system while feeling a little more energetic and inviting for new
               users.
@@ -46,10 +51,11 @@ function Register() {
                   Consistent branding
                 </p>
                 <p className="mt-2 text-sm leading-6 text-ink-600">
-                  The new semantic palette keeps the auth flow aligned with the site.
+                  The new semantic palette keeps the auth flow aligned with the
+                  site.
                 </p>
               </div>
-            </div>
+            </div> */}
           </div>
         </section>
       </div>
