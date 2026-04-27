@@ -1,0 +1,8 @@
+@config "../tailwind.config.js";
+@import "tailwindcss";
+
+.blue-shadow {
+  box-shadow:
+    0px 4px 6px -1px rgba(59, 130, 246, 0.1),
+    0px 2px 4px -1px rgba(59, 130, 246, 0.06);
+}

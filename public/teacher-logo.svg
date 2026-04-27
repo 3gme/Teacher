@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="teacher-logo-bg" x1="96" y1="76" x2="418" y2="436" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F766E"/>
+      <stop offset="1" stop-color="#155E75"/>
+    </linearGradient>
+    <linearGradient id="teacher-logo-book" x1="146" y1="190" x2="366" y2="362" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF7ED"/>
+      <stop offset="1" stop-color="#FFEDD5"/>
+    </linearGradient>
+    <linearGradient id="teacher-logo-cap" x1="194" y1="106" x2="317" y2="192" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F59E0B"/>
+      <stop offset="1" stop-color="#EA580C"/>
+    </linearGradient>
+  </defs>
+
+  <circle cx="256" cy="256" r="208" fill="url(#teacher-logo-bg)"/>
+  <circle cx="256" cy="256" r="190" stroke="#99F6E4" stroke-opacity=".2" stroke-width="12"/>
+
+  <path
+    d="M255.998 159 132 210.967 256 262.934 380 210.967 255.998 159Z"
+    fill="url(#teacher-logo-cap)"
+  />
+  <path
+    d="M169.248 228.885V293.2C169.248 304.49 175.535 314.84 185.56 320.034C208.645 331.996 232.071 338 256 338C279.929 338 303.355 331.996 326.44 320.034C336.465 314.84 342.752 304.49 342.752 293.2V228.885L256 265.246L169.248 228.885Z"
+    fill="url(#teacher-logo-book)"
+  />
+  <path
+    d="M256 234.016C219.231 234.016 188.555 253.534 180.643 279.982V341.919C180.643 350.116 187.288 356.761 195.485 356.761H316.515C324.712 356.761 331.357 350.116 331.357 341.919V279.982C323.445 253.534 292.769 234.016 256 234.016Z"
+    fill="url(#teacher-logo-book)"
+  />
+  <path
+    d="M256 233.303C219.509 233.303 188.977 250.726 180.643 274.864C196.405 267.543 212.899 263.881 230.128 263.881C241.22 263.881 249.844 267.265 256 274.034C262.156 267.265 270.78 263.881 281.872 263.881C299.101 263.881 315.595 267.543 331.357 274.864C323.023 250.726 292.491 233.303 256 233.303Z"
+    fill="#FFFFFF"
+    fill-opacity=".88"
+  />
+  <path
+    d="M256 275.699C250.016 268.153 241.495 264.379 230.438 264.379C214.68 264.379 200.36 267.567 187.48 273.942V348.163H248.275V288.448C248.275 283.831 251.383 279.792 256 278.611C260.617 279.792 263.725 283.831 263.725 288.448V348.163H324.52V273.942C311.64 267.567 297.32 264.379 281.562 264.379C270.505 264.379 261.984 268.153 256 275.699Z"
+    fill="#FFFBEB"
+  />
+  <path
+    d="M379.996 210.967V291.531"
+    stroke="#FCD34D"
+    stroke-linecap="round"
+    stroke-width="12"
+  />
+  <circle cx="379.996" cy="304.572" r="16.478" fill="#F59E0B"/>
+  <path
+    d="M211.453 303.621H238.51"
+    stroke="#0F766E"
+    stroke-linecap="round"
+    stroke-width="10"
+  />
+  <path
+    d="M273.49 303.621H300.547"
+    stroke="#0F766E"
+    stroke-linecap="round"
+    stroke-width="10"
+  />
+  <path
+    d="M224.982 322.411H238.51"
+    stroke="#0F766E"
+    stroke-linecap="round"
+    stroke-width="10"
+  />
+  <path
+    d="M273.49 322.411H287.018"
+    stroke="#0F766E"
+    stroke-linecap="round"
+    stroke-width="10"
+  />
+  <circle cx="162" cy="157" r="10" fill="#FDE68A"/>
+  <circle cx="348" cy="139" r="7" fill="#A7F3D0"/>
+  <circle cx="367" cy="165" r="5" fill="#FCD34D"/>
+</svg>
