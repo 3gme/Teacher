@@ -1,7 +1,8 @@
-import LoginForm from "../components/LoginForm";
+import LoginForm from "../features/auth/LoginForm";
 import Navbar from "../components/Navbar";
 
 function Register() {
+  // TODO: Implement actual registration logic
   function handleSubmit(e) {
     e.preventDefault();
     console.log(e.target.username.value, e.target.password.value);

@@ -1,6 +1,7 @@
-import LoginForm from "../components/LoginForm";
+import LoginForm from "../features/auth/LoginForm";
 import Navbar from "../components/Navbar";
 
+// TODO: Implement actual login logic
 function Login() {
   function handleSubmit(e) {
     e.preventDefault();
