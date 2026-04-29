@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
+
 function CourseCard({ course }) {
-  const { title, description, price, imageUrl, sections } = course;
+  const { title, description, price, imageUrl, sections, courseId } = course;
   const lessonsCount = sections.reduce(
     (count, section) => count + section.lessons.length,
     0,
@@ -38,10 +40,17 @@ function CourseCard({ course }) {
                 ${price}
               </span>
             </div>
-
-            <button className="rounded-xl bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition hover:bg-primary-700">
-              Enroll Now
-            </button>
+            <div className="flex gap-2">
+              <Link
+                to={`/courses/${courseId}`}
+                className="rounded-xl bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition hover:bg-primary-700"
+              >
+                Details
+              </Link>
+              <button className="rounded-xl bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition hover:bg-primary-700">
+                Enroll Now
+              </button>
+            </div>
           </div>
         </div>
       </article>

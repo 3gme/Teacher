@@ -1,0 +1,149 @@
+[
+  {
+    "courseId": 1,
+    "title": "Classroom Management Essentials",
+    "description": "Practical routines, behavior systems, and lesson flow ideas for calmer, more focused classrooms.",
+    "price": 100,
+    "imageUrl": "https://placehold.co/600x400?text=Classroom+Management",
+    "sections": [
+      {
+        "sectionId": 1,
+        "title": "Daily routines",
+        "orderIndex": 1,
+        "lessons": [
+          {
+            "lessonId": 1,
+            "title": "Start strong every morning",
+            "orderIndex": 1
+          }
+        ]
+      },
+      {
+        "sectionId": 2,
+        "title": "Behavior support",
+        "orderIndex": 2,
+        "lessons": []
+      }
+    ]
+  },
+  {
+    "courseId": 2,
+    "title": "Creative English Activities",
+    "description": "Speaking games, vocabulary practice, and low-prep classroom activities to keep students engaged.",
+    "price": 85,
+    "imageUrl": "https://placehold.co/600x400?text=English+Activities",
+    "sections": [
+      {
+        "sectionId": 1,
+        "title": "Warm-up games",
+        "orderIndex": 1,
+        "lessons": [
+          {
+            "lessonId": 1,
+            "title": "Fast conversation starters",
+            "orderIndex": 1
+          }
+        ]
+      },
+      {
+        "sectionId": 2,
+        "title": "Group activities",
+        "orderIndex": 2,
+        "lessons": []
+      }
+    ]
+  },
+  {
+    "courseId": 3,
+    "title": "Digital Tools for Teachers",
+    "description": "Use modern apps and AI-assisted workflows to plan lessons, track progress, and save preparation time.",
+    "price": 120,
+    "imageUrl": "https://placehold.co/600x400?text=Digital+Tools",
+    "sections": [
+      {
+        "sectionId": 1,
+        "title": "Planning tools",
+        "orderIndex": 1,
+        "lessons": [
+          {
+            "lessonId": 1,
+            "title": "Build a smart weekly plan",
+            "orderIndex": 1
+          }
+        ]
+      },
+      {
+        "sectionId": 2,
+        "title": "Student feedback",
+        "orderIndex": 2,
+        "lessons": []
+      }
+    ]
+  },
+  {
+    "courseId": 4,
+    "title": "Assessment and Feedback Basics",
+    "description": "Simple ways to check understanding, give useful comments, and keep students moving forward.",
+    "price": 95,
+    "imageUrl": "https://placehold.co/600x400?text=Assessment+%26+Feedback",
+    "sections": [
+      {
+        "sectionId": 1,
+        "title": "Quick checks",
+        "orderIndex": 1,
+        "lessons": [
+          {
+            "lessonId": 1,
+            "title": "Exit tickets that actually help",
+            "orderIndex": 1
+          }
+        ]
+      },
+      {
+        "sectionId": 2,
+        "title": "Feedback habits",
+        "orderIndex": 2,
+        "lessons": [
+          {
+            "lessonId": 1,
+            "title": "Comment on progress, not just mistakes",
+            "orderIndex": 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "courseId": 5,
+    "title": "Lesson Planning Made Simple",
+    "description": "Plan stronger lessons with clear goals, better pacing, and more student participation.",
+    "price": 110,
+    "imageUrl": "https://placehold.co/600x400?text=Lesson+Planning",
+    "sections": [
+      {
+        "sectionId": 1,
+        "title": "Learning goals",
+        "orderIndex": 1,
+        "lessons": [
+          {
+            "lessonId": 1,
+            "title": "Write one clear goal for each lesson",
+            "orderIndex": 1
+          }
+        ]
+      },
+      {
+        "sectionId": 2,
+        "title": "Lesson flow",
+        "orderIndex": 2,
+        "lessons": [
+          {
+            "lessonId": 1,
+            "title": "Use a warm-up, practice, and reflection",
+            "orderIndex": 1
+          }
+        ]
+      }
+    ]
+  }
+]
