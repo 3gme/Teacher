@@ -7,6 +7,8 @@ import PageNotFound from "./pages/PageNotFound";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CourseDetails from "./pages/CourseDetails";
+import PaymentPage from "./pages/PaymentPage";
+import Lessonage from "./pages/Lessonpage";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
           <Route index element={<Main />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/courses/:id" element={<CourseDetails />} />
+          <Route path="/courses/:id/:lessonId" element={<Lessonage />} />
+          <Route path="/courses/:id/enroll" element={<PaymentPage />} />
         </Route>
 
         <Route path="/login" element={<Login />} />

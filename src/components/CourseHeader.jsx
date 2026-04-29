@@ -1,5 +1,7 @@
+import Button from "./Button";
+
 function CourseHeader({ course }) {
-  const { title, description, price, imageUrl } = course;
+  const { title, description, price, imageUrl, courseId } = course;
 
   return (
     <div className="bg-white rounded-2xl shadow overflow-hidden">
@@ -10,9 +12,14 @@ function CourseHeader({ course }) {
 
         <div className="flex justify-between items-center mt-4">
           <span className="text-2xl font-bold text-primary-600">${price}</span>
-          <button className="bg-primary-600 text-white px-5 py-2 rounded-xl hover:bg-primary-700">
-            Enroll Now
-          </button>
+          <div className="flex gap-4">
+            <Button to="/courses" type="danger">
+              Back
+            </Button>
+            <Button to={`/courses/${courseId}/enroll`} type="primary">
+              Enroll Now
+            </Button>
+          </div>
         </div>
       </div>
     </div>

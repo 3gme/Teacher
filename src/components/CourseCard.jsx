@@ -47,9 +47,12 @@ function CourseCard({ course }) {
               >
                 Details
               </Link>
-              <button className="rounded-xl bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition hover:bg-primary-700">
+              <Link
+                to={`/courses/${courseId}/enroll`}
+                className="rounded-xl bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition hover:bg-primary-700"
+              >
                 Enroll Now
-              </button>
+              </Link>
             </div>
           </div>
         </div>

@@ -7,7 +7,7 @@ function SectionCard({ section }) {
   const { title, lessons } = section;
   console.log("front");
   return (
-    <div className="border rounded-xl">
+    <div className="border overflow-hidden rounded-xl">
       {/* Section Header */}
       <div
         onClick={() => setOpenSection((isOpenNow) => !isOpenNow)}
@@ -18,13 +18,16 @@ function SectionCard({ section }) {
       </div>
 
       {/* Lessons */}
-      {openSection && (
-        <ul className="p-4 space-y-2">
-          {lessons.map((lesson) => (
-            <LessonCard key={lesson.lessonId} lesson={lesson} />
-          ))}
-        </ul>
-      )}
+      {openSection &&
+        (lessons.length > 0 ? (
+          <ul className="p-4 space-y-2">
+            {lessons.map((lesson) => (
+              <LessonCard key={lesson.lessonId} lesson={lesson} />
+            ))}
+          </ul>
+        ) : (
+          <p className="p-4 text-md text-ink-500">No lessons available yet.</p>
+        ))}
     </div>
   );
 }
