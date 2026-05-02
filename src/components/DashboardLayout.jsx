@@ -9,9 +9,9 @@ function DashboardLayout() {
 
   return (
     <div className="grid grid-cols-12 gap-4 min-h-screen h-full">
-      <aside className="col-span-3 rounded-lg bg-secondary-100 px-8 py-8 h-full">
+      <aside className="col-span-2 rounded-lg bg-secondary-100 px-8 py-8 h-full">
         <nav className="flex flex-col gap-3 h-full">
-          <NavLink to="/dashboard/" className={getLinkClass}>
+          <NavLink to="/dashboard" end className={getLinkClass}>
             Dashboard
           </NavLink>
           <NavLink to="/dashboard/courses" className={getLinkClass}>
@@ -25,7 +25,7 @@ function DashboardLayout() {
           </NavLink>
         </nav>
       </aside>
-      <main className="col-span-9 min-h-full pt-8 px-6">
+      <main className="col-span-10 min-h-full pt-8 px-6">
         <Outlet />
       </main>
     </div>

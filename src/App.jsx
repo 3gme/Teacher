@@ -29,7 +29,7 @@ function App() {
 
             <Route path="/dashboard" element={<DashboardLayout />}>
               <Route index element={<Dashboard />} />
-              <Route path="/dashboard/courses" element={<AdminCourses />} />
+              <Route path="courses" element={<AdminCourses />} />
             </Route>
           </Route>
 
