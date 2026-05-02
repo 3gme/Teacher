@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar";
-import RegisterForm from "../components/RegisterForm";
-import RegisterTextSection from "../components/RegisterTextSection";
+import RegisterForm from "../features/auth/RegisterForm";
+import RegisterTextSection from "../features/auth/RegisterTextSection";
 
 function Register() {
   // TODO: Implement actual registration logic

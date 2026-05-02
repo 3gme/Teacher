@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import Logo from "./Logo";
-import InputField from "./InputField";
-import Button from "./Button";
+import Logo from "../../components/Logo";
+import InputField from "../../components/InputField";
+import Button from "../../components/Button";
 
 const fields = [
   {
@@ -130,48 +130,14 @@ function RegisterForm() {
           </p>
         </div>
 
-        {/* <form className="space-y-7">
-          {fieldGroups.map((group) => (
-            <fieldset key={group.title}>
-              <legend className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-primary-700">
-                {group.title}
-              </legend>
-
-              <div className="grid gap-4 sm:grid-cols-2">
-                {group.fields.map((field) => (
-                  <div
-                    key={field.id}
-                    className={
-                      group.title === "Location" ? "sm:col-span-1" : ""
-                    }
-                  >
-                    <label
-                      htmlFor={field.id}
-                      className="mb-2 block cursor-pointer text-sm font-semibold text-ink-700"
-                    >
-                      {field.label}
-                    </label>
-                    <input
-                      id={field.id}
-                      name={field.id}
-                      type={field.type}
-                      value={formData[field.id]}
-                      onChange={handleChange}
-                      required
-                      minLength={field.minLength}
-                      placeholder={field.placeholder}
-                      className="w-full rounded-2xl border border-primary-100 bg-surface px-4 py-3 text-ink-800 outline-none transition placeholder:text-ink-400 focus:border-primary focus:ring-4 focus:ring-primary-100"
-                    />
-                  </div>
-                ))}
-              </div>
-            </fieldset>
-          ))}
-        </form> */}
         <form className="grid gap-6" onSubmit={handleSubmit(onSubmit)}>
           {fields.map((field) => (
             <InputField
-              gridLayout={"1fr_2fr_1fr"}
+              gridLayout={{
+                sm: "1fr_2fr_1fr",
+                md: "1fr_3fr_1fr",
+                mobile: "1fr",
+              }}
               field={{
                 ...field,
                 useFormRegister:

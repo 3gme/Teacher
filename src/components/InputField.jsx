@@ -1,12 +1,9 @@
 function InputField({ gridLayout, field, error, register }) {
-  // gridLayout={"1fr_2fr_1fr"}
-  const { id, label, type, minLength, placeholder } = field;
-  const gridTemplateColumns = gridLayout?.replaceAll("_", " ");
+  const { id, label, type, placeholder } = field;
 
   return (
     <div
-      className="grid gap-2 items-center"
-      style={gridTemplateColumns ? { gridTemplateColumns } : undefined}
+      className={`grid grid-cols-[${gridLayout?.mobile || "1fr"}] sm:grid-cols-[${gridLayout?.sm || "1fr"}] md:grid-cols-[${gridLayout?.md || "1fr"}] gap-2 items-center`}
     >
       <label
         htmlFor={id}
@@ -18,7 +15,6 @@ function InputField({ gridLayout, field, error, register }) {
         id={id}
         name={id}
         type={type}
-        minLength={minLength}
         placeholder={placeholder}
         className="w-full rounded-2xl border border-primary-100 bg-surface px-4 py-3 text-ink-800 outline-none transition placeholder:text-ink-400 focus:border-primary focus:ring-4 focus:ring-primary-100"
         {...register(field.id, field.useFormRegister)}
