@@ -5,9 +5,8 @@ import { createSlice } from "@reduxjs/toolkit";
 // };
 const initialState = {
   user: {
-    user: {
-      role: "admin",
-    },
+    name: "Teacher",
+    role: "admin",
   },
 };
 

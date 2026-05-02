@@ -11,6 +11,9 @@ import Register from "./pages/Register";
 import CourseDetails from "./pages/CourseDetails";
 import PaymentPage from "./pages/PaymentPage";
 import Lessonage from "./pages/Lessonpage";
+import Dashboard from "./pages/Dashboard";
+import DashboardLayout from "./components/DashboardLayout";
+import AdminCourses from "./pages/AdminCourses";
 
 function App() {
   return (
@@ -23,6 +26,11 @@ function App() {
             <Route path="/courses/:id" element={<CourseDetails />} />
             <Route path="/courses/:id/:lessonId" element={<Lessonage />} />
             <Route path="/courses/:id/enroll" element={<PaymentPage />} />
+
+            <Route path="/dashboard" element={<DashboardLayout />}>
+              <Route index element={<Dashboard />} />
+              <Route path="/dashboard/courses" element={<AdminCourses />} />
+            </Route>
           </Route>
 
           <Route path="/login" element={<Login />} />

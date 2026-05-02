@@ -2,7 +2,13 @@ import { IoLogOut } from "react-icons/io5";
 import { Link, NavLink } from "react-router-dom";
 import Logo from "./Logo";
 
-function MainNavMenu({ isMenuOpen, handleCloseMenu, isLogin, setIsMenuOpen }) {
+function MainNavMenu({
+  isMenuOpen,
+  handleCloseMenu,
+  isLogin,
+  setIsMenuOpen,
+  isAdmin,
+}) {
   const baseLinkClass =
     "rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200";
 
@@ -107,13 +113,15 @@ function MainNavMenu({ isMenuOpen, handleCloseMenu, isLogin, setIsMenuOpen }) {
               >
                 <IoLogOut className="text-xl" />
               </NavLink>
-              <NavLink
-                to="/dashboard"
-                className="rounded-md bg-white px-4 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary-100"
-                onClick={handleCloseMenu}
-              >
-                Dashboard
-              </NavLink>
+              {isAdmin && (
+                <NavLink
+                  to="/dashboard"
+                  className="rounded-md bg-white px-4 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary-100"
+                  onClick={handleCloseMenu}
+                >
+                  Dashboard
+                </NavLink>
+              )}
             </>
           )}
         </nav>
