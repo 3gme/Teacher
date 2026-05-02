@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
 
-function Button({ to, children, onClick, type = "primary" }) {
+function Button({
+  to,
+  children,
+  onClick,
+  type = "primary",
+  className = "",
+  isSubmit = false,
+}) {
   const types = {
     primary:
       "bg-primary-600 text-white px-5 py-2 rounded-xl hover:bg-primary-700 font-semibold",
@@ -15,13 +22,20 @@ function Button({ to, children, onClick, type = "primary" }) {
 
   if (to)
     return (
-      <Link to={to} className={classname}>
+      <Link
+        to={to}
+        className={`${classname}${className ? ` ${className}` : ""}`}
+      >
         {children}
       </Link>
     );
 
   return (
-    <button className={classname} onClick={onClick}>
+    <button
+      className={`${classname}${className ? ` ${className}` : ""}`}
+      onClick={onClick}
+      type={isSubmit ? "submit" : "button"}
+    >
       {children}
     </button>
   );
