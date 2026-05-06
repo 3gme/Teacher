@@ -1,96 +1,29 @@
-import { FaEdit } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
-import coursesData from "../../data/CoursesData.json";
-import { updateCourse } from "./adminSlice";
+import { FaPlus, FaTrash } from "react-icons/fa";
+import { useSelector } from "react-redux";
+
+// const inputClass =
+//   "w-full rounded-xl border border-primary-100 bg-white px-3 py-2 text-sm text-ink-800 outline-none transition placeholder:text-ink-400 focus:border-primary focus:ring-4 focus:ring-primary-100";
+
+// const labelClass = "mb-2 block text-xs font-semibold uppercase text-ink-500";
 
 const inputClass =
   "w-full rounded-xl border border-primary-100 bg-white px-3 py-2 text-sm text-ink-800 outline-none transition placeholder:text-ink-400 focus:border-primary focus:ring-4 focus:ring-primary-100";
 
 const labelClass = "mb-2 block text-xs font-semibold uppercase text-ink-500";
 
-function CoursesMain() {
-  const selectedCourse = useSelector(
-    (state) => state.admin.selectedIds.courseId,
-  );
-  const dispatch = useDispatch();
-  console.log(selectedCourse);
+function SectionsAndLessons() {
+  const selectedCourse = useSelector((state) => {
+    const selectedCourseId = state.admin.selectedIds.courseId || 1;
+    return state.admin.courses.find(
+      (course) => course.courseId === selectedCourseId,
+    );
+  });
 
-  const { title, imageUrl, price, description } =
-    coursesData.find((course) => course.courseId === selectedCourse) || {};
+  console.log(selectedCourse);
 
   return (
     <div className="space-y-6">
       <article className="rounded-2xl border border-surface-200 bg-white p-5 shadow-sm">
-        <div className="mb-5 flex items-center gap-2 text-sm font-semibold text-ink-800">
-          <FaEdit className="text-primary-600" />
-          Course details
-        </div>
-
-        <div className="grid gap-4 lg:grid-cols-2">
-          <label>
-            <span className={labelClass}>Title</span>
-            <input
-              value={title}
-              onChange={(event) =>
-                dispatch(
-                  updateCourse({ field: "title", value: event.target.value }),
-                )
-              }
-              className={inputClass}
-            />
-          </label>
-
-          <label>
-            <span className={labelClass}>Image URL</span>
-            <input
-              value={imageUrl}
-              onChange={(event) =>
-                dispatch(
-                  updateCourse({
-                    field: "imageUrl",
-                    value: event.target.value,
-                  }),
-                )
-              }
-              className={inputClass}
-            />
-          </label>
-
-          <label>
-            <span className={labelClass}>Price</span>
-            <input
-              type="number"
-              min="0"
-              value={price}
-              onChange={(event) =>
-                dispatch(
-                  updateCourse({ field: "price", value: event.target.value }),
-                )
-              }
-              className={inputClass}
-            />
-          </label>
-
-          <label className="lg:col-span-2">
-            <span className={labelClass}>Description</span>
-            <textarea
-              value={description}
-              onChange={(event) =>
-                dispatch(
-                  updateCourse({
-                    field: "description",
-                    value: event.target.value,
-                  }),
-                )
-              }
-              rows={3}
-              className={`${inputClass} resize-none leading-6`}
-            />
-          </label>
-        </div>
-      </article>
-
-      {/* <article className="rounded-2xl border border-surface-200 bg-white p-5 shadow-sm">
         <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="text-lg font-semibold text-ink-900">
@@ -103,7 +36,6 @@ function CoursesMain() {
 
           <button
             type="button"
-            onClick={addSection}
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-700"
           >
             <FaPlus />
@@ -120,17 +52,7 @@ function CoursesMain() {
               <div className="grid gap-3 lg:grid-cols-[1fr_120px_auto] lg:items-end">
                 <label>
                   <span className={labelClass}>Section title</span>
-                  <input
-                    value={section.title}
-                    onChange={(event) =>
-                      updateSection(
-                        section.sectionId,
-                        "title",
-                        event.target.value,
-                      )
-                    }
-                    className={inputClass}
-                  />
+                  <input value={section.title} className={inputClass} />
                 </label>
 
                 <label>
@@ -139,20 +61,12 @@ function CoursesMain() {
                     type="number"
                     min="1"
                     value={section.orderIndex}
-                    onChange={(event) =>
-                      updateSection(
-                        section.sectionId,
-                        "orderIndex",
-                        event.target.value,
-                      )
-                    }
                     className={inputClass}
                   />
                 </label>
 
                 <button
                   type="button"
-                  onClick={() => deleteSection(section.sectionId)}
                   className="inline-flex items-center justify-center gap-2 rounded-xl border border-red-100 bg-white px-4 py-2.5 text-sm font-semibold text-red-600 transition hover:bg-red-50"
                 >
                   <FaTrash />
@@ -167,7 +81,6 @@ function CoursesMain() {
                   </h3>
                   <button
                     type="button"
-                    onClick={() => addLesson(section.sectionId)}
                     className="inline-flex items-center gap-2 rounded-lg bg-secondary px-3 py-2 text-xs font-semibold text-white transition hover:bg-secondary-700"
                   >
                     <FaPlus />
@@ -188,18 +101,7 @@ function CoursesMain() {
                       >
                         <label>
                           <span className={labelClass}>Lesson title</span>
-                          <input
-                            value={lesson.title}
-                            onChange={(event) =>
-                              updateLesson(
-                                section.sectionId,
-                                lesson.lessonId,
-                                "title",
-                                event.target.value,
-                              )
-                            }
-                            className={inputClass}
-                          />
+                          <input value={lesson.title} className={inputClass} />
                         </label>
 
                         <label>
@@ -208,23 +110,12 @@ function CoursesMain() {
                             type="number"
                             min="1"
                             value={lesson.orderIndex}
-                            onChange={(event) =>
-                              updateLesson(
-                                section.sectionId,
-                                lesson.lessonId,
-                                "orderIndex",
-                                event.target.value,
-                              )
-                            }
                             className={inputClass}
                           />
                         </label>
 
                         <button
                           type="button"
-                          onClick={() =>
-                            deleteLesson(section.sectionId, lesson.lessonId)
-                          }
                           className="inline-flex items-center justify-center gap-2 rounded-xl border border-red-100 bg-white px-4 py-2.5 text-sm font-semibold text-red-600 transition hover:bg-red-50"
                         >
                           <FaTrash />
@@ -238,9 +129,9 @@ function CoursesMain() {
             </section>
           ))}
         </div>
-      </article> */}
+      </article>
     </div>
   );
 }
 
-export default CoursesMain;
+export default SectionsAndLessons;

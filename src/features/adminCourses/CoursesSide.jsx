@@ -1,48 +1,38 @@
-import { FaBookOpen } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
+import { FaBookOpen, FaPlus } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import CourseSideCourseSlide from "./CourseSideCourseSlide";
+import Modal from "../../components/Modal";
+import AddCourseModal from "./AddCourseModal";
 
-function CoursesSide({ courses }) {
-  const selectedCourseId = useSelector(
-    (state) => state.admin.selectedIds.courseId,
-  );
-  const dispatch = useDispatch();
-  console.log(selectedCourseId);
+function CoursesSide() {
+  // TODO: Get Courses from API and store in Redux
+  const courses = useSelector((state) => state.admin.courses);
+
   return (
-    <aside className="rounded-2xl border border-surface-200 bg-white p-4 shadow-sm">
+    <aside className="rounded-2xl border border-surface-200 bg-white p-4 shadow-sm max-h-140 overflow-y-auto">
       <div className="mb-4 flex items-center gap-2 text-sm font-semibold text-ink-800">
         <FaBookOpen className="text-primary-600" />
         Courses
       </div>
 
       <div className="space-y-2">
-        {courses.map((course) => {
-          const isSelected = course.courseId === selectedCourseId;
-
-          return (
+        {courses.map((course) => (
+          <CourseSideCourseSlide key={course.courseId} course={course} />
+        ))}
+        <Modal>
+          <Modal.Open opens="add-course">
             <button
-              key={course.courseId}
               type="button"
-              onClick={() =>
-                dispatch({
-                  type: "admin/setCourseId",
-                  payload: course.courseId,
-                })
-              }
-              className={`w-full rounded-xl border p-3 text-left transition ${
-                isSelected
-                  ? "border-primary-200 bg-primary-50"
-                  : "border-transparent bg-surface-50 hover:border-primary-100 hover:bg-white"
-              }`}
+              className="flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-primary-200 bg-primary-50 p-3 text-sm font-semibold text-primary-700 transition hover:border-primary hover:bg-primary-100"
             >
-              <span className="block text-sm font-semibold text-ink-900">
-                {course.title}
-              </span>
-              <span className="mt-1 block text-xs text-ink-500">
-                {course.sections.length} sections
-              </span>
+              <FaPlus />
+              Add new course
             </button>
-          );
-        })}
+          </Modal.Open>
+          <Modal.Window name="add-course">
+            <AddCourseModal />
+          </Modal.Window>
+        </Modal>
       </div>
     </aside>
   );

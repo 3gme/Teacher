@@ -3,7 +3,7 @@ import coursesData from "../../data/CoursesData.json";
 
 const initialState = {
   selectedIds: {
-    courseId: null,
+    courseId: 1,
     sectionId: null,
     lessonId: null,
   },
@@ -17,17 +17,27 @@ const adminSlice = createSlice({
     setCourseId: (state, action) => {
       state.selectedIds = { ...state.selectedIds, courseId: action.payload };
     },
+
+    addCourse: (state, action) => {
+      state.courses.push(action.payload);
+      state.selectedIds = {
+        ...state.selectedIds,
+        courseId: action.payload.courseId,
+      };
+    },
+
     updateCourse: (state, action) => {
-      const { field, value } = action.payload;
-      const course = state.courses.find(
-        (course) => course.courseId === state.selectedIds.courseId,
+      const selectedCourseId = state.selectedIds.courseId;
+      const courseIndex = state.courses.findIndex(
+        (course) => course.courseId === selectedCourseId,
       );
-      if (course) {
-        course[field] = value;
-      }
+      state.courses[courseIndex] = {
+        ...state.courses[courseIndex],
+        ...action.payload,
+      };
     },
   },
 });
 
-export const { setCourseId, updateCourse } = adminSlice.actions;
+export const { setCourseId, addCourse, updateCourse } = adminSlice.actions;
 export default adminSlice.reducer;
