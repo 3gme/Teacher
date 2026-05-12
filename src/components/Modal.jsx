@@ -1,4 +1,10 @@
-import { cloneElement, createContext, useContext, useEffect, useState } from "react";
+import {
+  cloneElement,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
 import { FaTimes } from "react-icons/fa";
 
@@ -17,7 +23,7 @@ function Modal({ children }) {
   );
 }
 
-function useModalContext() {
+export function useModalContext() {
   const context = useContext(ModalContext);
 
   if (!context) {

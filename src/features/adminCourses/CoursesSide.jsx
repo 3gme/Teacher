@@ -9,8 +9,8 @@ function CoursesSide() {
   const courses = useSelector((state) => state.admin.courses);
 
   return (
-    <aside className="rounded-2xl border border-surface-200 bg-white p-4 shadow-sm max-h-140 overflow-y-auto">
-      <div className="mb-4 flex items-center gap-2 text-sm font-semibold text-ink-800">
+    <aside className="max-h-full overflow-y-auto rounded-2xl border border-surface-200 bg-white p-5 shadow-sm">
+      <div className="mb-5 flex items-center gap-2 text-base font-semibold text-ink-800">
         <FaBookOpen className="text-primary-600" />
         Courses
       </div>
@@ -23,7 +23,7 @@ function CoursesSide() {
           <Modal.Open opens="add-course">
             <button
               type="button"
-              className="flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-primary-200 bg-primary-50 p-3 text-sm font-semibold text-primary-700 transition hover:border-primary hover:bg-primary-100"
+              className="flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-primary-200 bg-primary-50 px-4 py-3.5 text-base font-semibold text-primary-700 transition hover:border-primary hover:bg-primary-100"
             >
               <FaPlus />
               Add new course

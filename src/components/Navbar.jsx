@@ -1,16 +1,18 @@
 import { useState } from "react";
 import MainNavMenu from "./MainNavMenu";
 import MainNavMobileMenu from "./MainNavMobileMenu";
-import { useSelector } from "react-redux";
+import { useGetUser } from "../features/auth/useGetUser";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const user = useSelector((state) => state.user);
+  const user = useGetUser();
+  console.log(user);
 
   // TODO: Replace with actual auth state
   const handleCloseMenu = () => setIsMenuOpen(false);
   const isLogin = !user ? true : false; // Assuming user is null when not logged in
-  const isAdmin = user?.user?.role === "admin"; // Assuming user object has a role property
+  // const isAdmin = user?.user?.role === "admin"; // Assuming user object has a role property
+  const isAdmin = true;
 
   return (
     <header className="sticky top-0 z-30 border-b border-primary-800 bg-primary text-primary-foreground shadow-md">

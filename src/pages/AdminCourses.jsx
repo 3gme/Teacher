@@ -27,13 +27,13 @@ function AdminCourses() {
   }, [selectedCourse]);
 
   return (
-    <section className="space-y-6">
+    <section className="space-y-6 pb-10 overflow-y-auto">
       <Header
         sectionCount={courseStats.sectionsCount}
         lessonCount={courseStats.lessonsCount}
       />
 
-      <div className="grid gap-6 xl:grid-cols-[320px_1fr] pb-10">
+      <div className="grid gap-6 h-[32rem] xl:grid-cols-[320px_1fr] pb-10 items-stretch">
         <CoursesSide courses={courses} />
         <CourseDetailsForm key={selectedCourseId} />
       </div>

@@ -13,16 +13,16 @@ function CourseSideCourseSlide({ course }) {
       key={course.courseId}
       type="button"
       onClick={() => dispatch(setCourseId(course.courseId))}
-      className={`w-full rounded-xl border p-3 text-left transition ${
+      className={`w-full rounded-xl border px-4 py-3.5 text-left transition ${
         isSelected
           ? "border-primary-200 bg-primary-50"
           : "border-transparent bg-surface-50 hover:border-primary-100 hover:bg-white"
       }`}
     >
-      <span className="block text-sm font-semibold text-ink-900">
+      <span className="block text-base font-semibold leading-6 text-ink-900">
         {course.title}
       </span>
-      <span className="mt-1 block text-xs text-ink-500">
+      <span className="mt-1.5 block text-sm text-ink-500">
         {course.sections.length} sections
       </span>
     </button>

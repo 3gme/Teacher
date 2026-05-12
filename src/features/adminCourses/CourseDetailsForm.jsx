@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { FaEdit } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { updateCourse } from "./adminSlice";
+import { updateCourse, deleteCourse } from "./adminSlice";
 import InputLabel from "../../components/InputLabel";
 import InputFile from "../../components/InputFile";
 
@@ -21,6 +21,10 @@ function CourseDetailsForm() {
     reset,
   } = useForm();
 
+  const handleDelete = () => {
+    dispatch(deleteCourse({ courseId: selectedCourseId }));
+  };
+
   const onSubmit = (data, e) => {
     e.preventDefault();
     console.log(data);
@@ -37,8 +41,8 @@ function CourseDetailsForm() {
     reset();
   };
   return (
-    <article className="rounded-2xl border border-surface-200 bg-white p-5 shadow-sm">
-      <div className="mb-5 flex items-center gap-2 text-sm font-semibold text-ink-800">
+    <article className="rounded-2xl border border-surface-200 bg-white p-5 shadow-sm lg:p-6">
+      <div className="mb-6 flex items-center gap-2 text-base font-semibold text-ink-800">
         <FaEdit className="text-primary-600" />
         Course details
       </div>
@@ -101,20 +105,37 @@ function CourseDetailsForm() {
           errorsMessage={errors.description?.message}
         />
 
-        <div className="w-full flex gap-2 col-span-2 justify-end">
-          <button
-            type="button"
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-700"
-            onClick={handleCancel}
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-700"
-          >
-            Save changes
-          </button>
+        <div className="col-span-2 flex w-full items-center justify-end gap-2">
+          {!selectedCourseId && (
+            <p className="mr-auto text-base text-red-500">
+              Choose a course to edit its details
+            </p>
+          )}
+          <div className="flex items-center justify-end gap-2">
+            <button
+              type="button"
+              className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-red-100 bg-white px-4 py-3 text-base font-semibold text-red-600 transition hover:bg-red-50"
+              onClick={handleDelete}
+              disabled={!selectedCourseId}
+            >
+              Delete
+            </button>
+            <button
+              type="button"
+              className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-base font-semibold text-white transition hover:bg-primary-700"
+              onClick={handleCancel}
+              disabled={!selectedCourseId}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-base font-semibold text-white transition hover:bg-primary-700"
+              disabled={!selectedCourseId}
+            >
+              Save changes
+            </button>
+          </div>
         </div>
       </form>
     </article>

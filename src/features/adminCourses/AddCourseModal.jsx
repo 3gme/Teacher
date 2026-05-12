@@ -1,11 +1,13 @@
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addCourse } from "./adminSlice";
 import InputLabel from "../../components/InputLabel";
-import Modal from "../../components/Modal";
+import Modal, { useModalContext } from "../../components/Modal";
+import InputFile from "../../components/InputFile";
 
-function AddCourseModal({ onCloseModal }) {
-  const courses = useSelector((state) => state.admin.courses);
+function AddCourseModal() {
+  // const courses = useSelector((state) => state.admin.courses);
+  const { close } = useModalContext();
   const dispatch = useDispatch();
   const {
     register,
@@ -17,44 +19,42 @@ function AddCourseModal({ onCloseModal }) {
       title: "",
       price: "",
       description: "",
-      imageUrl: "",
+      image: "",
     },
   });
 
   const onSubmit = (data) => {
-    const nextCourseId =
-      courses.reduce(
-        (largestCourseId, course) => Math.max(largestCourseId, course.courseId),
-        0,
-      ) + 1;
+    // const nextCourseId =
+    //   courses.reduce(
+    //     (largestCourseId, course) => Math.max(largestCourseId, course.courseId),
+    //     0,
+    //   ) + 1;
 
     dispatch(
       addCourse({
-        courseId: nextCourseId,
+        // courseId: nextCourseId,
         title: data.title,
         price: Number(data.price),
         description: data.description,
-        imageUrl:
-          data.imageUrl.trim() ||
-          `https://placehold.co/600x400?text=${encodeURIComponent(data.title)}`,
+        image: data.image[0] ? URL.createObjectURL(data.image[0]) : "",
         sections: [],
       }),
     );
 
     reset();
-    onCloseModal();
+    close();
   };
 
   return (
     <div>
       <div className="mb-6">
         <h2 className="text-xl font-semibold text-ink-900">Add a new course</h2>
-        <p className="mt-2 text-sm text-ink-500">
+        {/* <p className="mt-2 text-sm text-ink-500">
           This form lives inside a compound-component modal.
-        </p>
+        </p> */}
       </div>
 
-      <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <InputLabel
           type="text"
           label="Title"
@@ -81,11 +81,12 @@ function AddCourseModal({ onCloseModal }) {
           errorsMessage={errors.price?.message}
         />
 
-        <InputLabel
+        <InputFile
           type="text"
           label="Image URL"
-          register={register("imageUrl")}
-          errorsMessage={errors.imageUrl?.message}
+          register={register("image")}
+          newCourse={true}
+          errorsMessage={errors.image?.message}
         />
 
         <InputLabel

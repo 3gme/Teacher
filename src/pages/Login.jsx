@@ -1,11 +1,27 @@
 import LoginForm from "../features/auth/LoginForm";
 import Navbar from "../components/Navbar";
+import useLogin from "../features/auth/useLogin";
+import { useGetUser } from "../features/auth/useGetUser";
 
 // TODO: Implement actual login logic
 function Login() {
-  function handleSubmit(e) {
+  const { login, isLoading, user } = useLogin();
+  const { mutate: getUser, ispending, data: userData, error } = useGetUser();
+
+  const loading = isLoading || ispending;
+
+  function handleSubmit(data, e) {
     e.preventDefault();
-    console.log(e.target.username.value, e.target.password.value);
+    login(data);
+    getUser(user);
+
+    console.log("From Login\n\n");
+    console.log(user);
+    console.log("------------------");
+
+    console.log("From Login\n\n");
+    console.log(userData);
+    console.log("------------------");
   }
 
   return (
@@ -29,11 +45,6 @@ function Login() {
             <h2 className="text-5xl font-bold leading-tight text-ink-900">
               Keep lessons, students, and teaching flow in one calm place.
             </h2>
-            {/* <p className="mt-6 text-lg leading-8 text-ink-600">
-              A focused teacher dashboard should feel clear and reliable. This
-              sign-in space now leans into that with softer surfaces, stronger
-              contrast, and a friendlier blue academic tone.
-            </p> */}
             <div className="mt-8 flex gap-4">
               <div className="rounded-2xl border border-white/70 bg-white/70 px-5 py-4 text-sm text-ink-600 backdrop-blur-sm">
                 Organized course access
@@ -46,7 +57,11 @@ function Login() {
         </section>
 
         <section className="flex justify-center lg:justify-end">
-          <LoginForm isRegister={false} handleSubmit={handleSubmit} />
+          <LoginForm
+            isRegister={false}
+            handleSubmit={handleSubmit}
+            isLoading={loading}
+          />
         </section>
       </div>
     </main>
