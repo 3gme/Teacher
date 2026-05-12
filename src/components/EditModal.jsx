@@ -8,14 +8,14 @@ import { updateSection } from "../features/adminCourses/adminSlice";
 const fields = [
   {
     id: "title",
-    label: "Section title",
+    label: "title",
     type: "text",
     placeholder: "e.g. Daily routines",
     useFormRegister: {
-      required: "Section title is required",
+      required: "title is required",
       minLength: {
         value: 2,
-        message: "Section title must be at least 2 characters long",
+        message: "title must be at least 2 characters long",
       },
     },
   },
@@ -32,7 +32,9 @@ const fields = [
   },
 ];
 
-function SectionEditModal({ section }) {
+function EditModal({ section, lesson }) {
+  const title = section ? section.title : lesson.title;
+  const orderIndex = section ? section.orderIndex : lesson.orderIndex;
   const dispatch = useDispatch();
   const { close } = useModalContext();
   const {
@@ -41,28 +43,39 @@ function SectionEditModal({ section }) {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      title: section.title,
-      orderIndex: section.orderIndex,
+      title: title,
+      orderIndex: orderIndex,
     },
   });
 
   const onSubmit = (data) => {
-    dispatch(
-      updateSection({
-        sectionId: section.sectionId,
-        title: data.title,
-        orderIndex: data.orderIndex,
-      }),
-    );
+    section &&
+      dispatch(
+        updateSection({
+          sectionId: section.sectionId,
+          title: data.title,
+          orderIndex: data.orderIndex,
+        }),
+      );
+    lesson &&
+      dispatch(
+        updateSection({
+          lessonId: lesson.lessonId,
+          title: data.title,
+          orderIndex: data.orderIndex,
+        }),
+      );
     close();
   };
 
   return (
     <div>
       <div className="mb-6">
-        <h2 className="text-xl font-semibold text-ink-900">Edit section</h2>
+        <h2 className="text-xl font-semibold text-ink-900">
+          Edit {section?.title || lesson?.title}
+        </h2>
         <p className="mt-2 text-sm text-ink-500">
-          Update the section title and order.
+          Update the {section?.title || lesson?.title} title and order.
         </p>
       </div>
 
@@ -89,4 +102,4 @@ function SectionEditModal({ section }) {
   );
 }
 
-export default SectionEditModal;
+export default EditModal;

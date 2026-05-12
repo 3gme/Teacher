@@ -1,5 +1,4 @@
 import { createContext, useContext, useState } from "react";
-import { FaChevronDown } from "react-icons/fa";
 
 const context = createContext();
 
@@ -10,9 +9,7 @@ function Accordion({ children }) {
   const toggle = () => setIsOpen((prev) => !prev);
   return (
     <context.Provider value={{ isOpen, setIsOpen, open, close, toggle }}>
-      <div className="rounded-xl overflow-hidden h-fit border border-primary-500">
-        {children}
-      </div>
+      {children}
     </context.Provider>
   );
 }
@@ -26,22 +23,7 @@ function useAccordionContext() {
 }
 
 function AccordionHeader({ children }) {
-  const { isOpen, toggle } = useAccordionContext();
-  return (
-    <div className="grid grid-cols-[1fr_auto] items-center w-full gap-4 bg-primary-50 px-5 py-4">
-      <div>{children}</div>
-      <button
-        className="flex items-center justify-center w-8 h-8 justify-self-end rounded-sm text-ink-800 hover:bg-primary-100 focus:outline-none focus:bg-primary-100 transition"
-        onClick={toggle}
-      >
-        <span
-          className={`transition ease-in-out ${isOpen ? "-rotate-180" : ""} `}
-        >
-          <FaChevronDown />
-        </span>
-      </button>
-    </div>
-  );
+  return children;
 }
 
 function AccordionContent({ children }) {

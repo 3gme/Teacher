@@ -2,28 +2,32 @@ import Accordion from "./Accordion";
 import Modal from "./Modal";
 import SectionAdminHeader from "./SectionAdminHeader";
 import SectionDeleteModal from "./SectionDeleteModal";
-import SectionEditModal from "./SectionEditModal";
+import EditModal from "./EditModal";
+import SectionLessonsList from "./SectionLessonsList";
 
 function SectionAdmin({ section }) {
-  const editWindowName = `edit-section-${section.sectionId}`;
-  const deleteWindowName = `delete-section-${section.sectionId}`;
-
+  const editWindowName = `edit-section-${section.title}`;
+  const deleteWindowName = `delete-section-${section.title}`;
   return (
     <Modal>
       <Accordion>
-        <Accordion.Header>
-          <SectionAdminHeader section={section} />
-        </Accordion.Header>
-        <Accordion.Content>content</Accordion.Content>
+        <div className="rounded-2xl border border-primary-100 bg-white shadow-sm">
+          <Accordion.Header>
+            <SectionAdminHeader section={section} />
+          </Accordion.Header>
+          <Accordion.Content>
+            <SectionLessonsList lessons={section.lessons} />
+          </Accordion.Content>
+        </div>
+
+        <Modal.Window name={editWindowName}>
+          <EditModal section={section} />
+        </Modal.Window>
+
+        <Modal.Window name={deleteWindowName}>
+          <SectionDeleteModal section={section} />
+        </Modal.Window>
       </Accordion>
-
-      <Modal.Window name={editWindowName}>
-        <SectionEditModal section={section} />
-      </Modal.Window>
-
-      <Modal.Window name={deleteWindowName}>
-        <SectionDeleteModal section={section} />
-      </Modal.Window>
     </Modal>
   );
 }

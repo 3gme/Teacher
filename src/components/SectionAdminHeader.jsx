@@ -1,39 +1,31 @@
-import Modal from "./Modal";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { useAccordionContext } from "./Accordion";
+import AdminActions from "./AdminActions";
+import OrderField from "./OrderField";
+import { FaChevronDown } from "react-icons/fa";
 
 function SectionAdminHeader({ section }) {
-  const editWindowName = `edit-section-${section.sectionId}`;
-  const deleteWindowName = `delete-section-${section.sectionId}`;
-
+  const { isOpen, toggle } = useAccordionContext();
   return (
-    <div className="grid grid-cols-[auto_auto] items-center">
-      <h3 className="text-lg font-medium text-ink-800 flex items-center gap-2">
-        <span className="rounded-xl bg-primary-200 flex items-center justify-center w-8 h-8 text-lg font-bold text-ink-700">
+    <div className="grid grid-cols-[1fr_auto] items-center gap-4 px-5 py-4">
+      <h3 className="flex items-center gap-3 text-lg font-medium text-ink-800">
+        <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary-200 text-lg font-bold text-ink-700">
           {section.orderIndex}
         </span>
         {section.title}
       </h3>
-      <div className="justify-self-end flex items-center">
-        <Modal.Open opens={editWindowName}>
-          <button
-            type="button"
-            className="ml-4 flex items-center gap-1 rounded-md border border-primary-500 px-3 py-2 text-base text-primary-500 transition hover:bg-primary-100 hover:text-primary-600"
-            aria-label={`Edit ${section.title}`}
-          >
-            <FaEdit />
-            Edit
-          </button>
-        </Modal.Open>
-        <Modal.Open opens={deleteWindowName}>
-          <button
-            type="button"
-            className="ml-4 flex items-center gap-1 rounded-md border border-red-500 px-3 py-2 text-base text-red-500 transition hover:bg-red-100 hover:text-red-600"
-            aria-label={`Delete ${section.title}`}
-          >
-            <FaTrash />
-            Delete
-          </button>
-        </Modal.Open>
+      <div className="flex items-center gap-3">
+        <OrderField section={section} />
+        <AdminActions section={section} />
+        <button
+          type="button"
+          onClick={toggle}
+          className="flex h-12 w-12 items-center justify-center rounded-xl border border-primary-100 text-ink-700 transition hover:bg-primary-50 hover:text-primary-600"
+          aria-label={isOpen ? "Collapse section" : "Expand section"}
+        >
+          <span className={`transition ${isOpen ? "rotate-180" : ""}`}>
+            <FaChevronDown />
+          </span>
+        </button>
       </div>
     </div>
   );

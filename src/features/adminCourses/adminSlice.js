@@ -78,6 +78,58 @@ const adminSlice = createSlice({
         courseIndex
       ].sections.filter((section) => section.sectionId !== action.payload);
     },
+
+    updateLesson: (state, action) => {
+      const selectedCourseId = state.selectedIds.courseId;
+      const courseIndex = state.courses.findIndex(
+        (course) => course.courseId === selectedCourseId,
+      );
+
+      if (courseIndex === -1) return;
+
+      const sectionIndex = state.courses[courseIndex].sections.findIndex(
+        (section) => section.sectionId === state.selectedIds.sectionId,
+      );
+
+      if (sectionIndex === -1) return;
+
+      const lessonIndex = state.courses[courseIndex].sections[
+        sectionIndex
+      ].lessons.findIndex(
+        (lesson) => lesson.lessonId === action.payload.lessonId,
+      );
+
+      if (lessonIndex === -1) return;
+
+      state.courses[courseIndex].sections[sectionIndex].lessons[lessonIndex] = {
+        ...state.courses[courseIndex].sections[sectionIndex].lessons[
+          lessonIndex
+        ],
+        title: action.payload.title,
+        orderIndex: Number(action.payload.orderIndex),
+      };
+    },
+
+    deleteLesson: (state, action) => {
+      const selectedCourseId = state.selectedIds.courseId;
+      const courseIndex = state.courses.findIndex(
+        (course) => course.courseId === selectedCourseId,
+      );
+
+      if (courseIndex === -1) return;
+
+      const sectionIndex = state.courses[courseIndex].sections.findIndex(
+        (section) => section.sectionId === state.selectedIds.sectionId,
+      );
+
+      if (sectionIndex === -1) return;
+
+      state.courses[courseIndex].sections[sectionIndex].lessons = state.courses[
+        courseIndex
+      ].sections[sectionIndex].lessons.filter(
+        (lesson) => lesson.lessonId !== action.payload,
+      );
+    },
   },
 });
 
@@ -88,5 +140,7 @@ export const {
   deleteCourse,
   updateSection,
   deleteSection,
+  updateLesson,
+  deleteLesson,
 } = adminSlice.actions;
 export default adminSlice.reducer;
