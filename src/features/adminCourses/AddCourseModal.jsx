@@ -4,6 +4,7 @@ import { addCourse } from "./adminSlice";
 import InputLabel from "../../components/InputLabel";
 import Modal, { useModalContext } from "../../components/Modal";
 import InputFile from "../../components/InputFile";
+import useAddCourse from "./useAddCourse";
 
 function AddCourseModal() {
   // const courses = useSelector((state) => state.admin.courses);
@@ -16,33 +17,38 @@ function AddCourseModal() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      title: "",
-      price: "",
-      description: "",
+      title: "Title test",
+      price: "1000",
+      description: "1212121212121",
       image: "",
     },
   });
+  const { addCourse: addCourseMutation, isPending } = useAddCourse(
+    close,
+    reset,
+  );
 
   const onSubmit = (data) => {
-    // const nextCourseId =
-    //   courses.reduce(
-    //     (largestCourseId, course) => Math.max(largestCourseId, course.courseId),
-    //     0,
-    //   ) + 1;
-
     dispatch(
       addCourse({
         // courseId: nextCourseId,
         title: data.title,
         price: Number(data.price),
         description: data.description,
-        image: data.image[0] ? URL.createObjectURL(data.image[0]) : "",
+        image: data.image[0],
         sections: [],
       }),
     );
 
-    reset();
-    close();
+    addCourseMutation({
+      title: data.title,
+      price: Number(data.price),
+      description: data.description,
+      image: data.image[0] || null,
+    });
+
+    // reset();
+    // close();
   };
 
   return (
@@ -116,8 +122,9 @@ function AddCourseModal() {
           <button
             type="submit"
             className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary-700"
+            disabled={isPending}
           >
-            Create course
+            {isPending ? "Creating course..." : "Create course"}
           </button>
         </div>
       </form>

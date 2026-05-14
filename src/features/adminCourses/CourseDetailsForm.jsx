@@ -1,19 +1,15 @@
 import { useForm } from "react-hook-form";
 import { FaEdit } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
-import { updateCourse, deleteCourse } from "./adminSlice";
-import InputLabel from "../../components/InputLabel";
+import ConfirmationModal from "../../components/ConfirmationModal";
 import InputFile from "../../components/InputFile";
+import InputLabel from "../../components/InputLabel";
+import Modal, { useModalContext } from "../../components/Modal";
+import useDeleteCourse from "./useDeleteCourse";
 
-function CourseDetailsForm() {
-  const selectedCourseId = useSelector(
-    (state) => state.admin.selectedIds.courseId,
-  );
-  const coursesData = useSelector((state) => state.admin.courses);
-  const dispatch = useDispatch();
-  const { title, price, description } =
-    coursesData.find((course) => course.courseId === selectedCourseId) || {};
-
+function CourseDetailsForm({ course }) {
+  const { courseId, title, price, description } = course || {};
+  const { close } = useModalContext();
+  const { deleteCourse } = useDeleteCourse(close);
   const {
     register,
     handleSubmit,
@@ -22,19 +18,13 @@ function CourseDetailsForm() {
   } = useForm();
 
   const handleDelete = () => {
-    dispatch(deleteCourse({ courseId: selectedCourseId }));
+    deleteCourse(courseId);
   };
 
   const onSubmit = (data, e) => {
     e.preventDefault();
     console.log(data);
-    console.log(selectedCourseId);
-    dispatch(
-      updateCourse({
-        ...data,
-        price: Number(data.price),
-      }),
-    );
+    console.log(courseId);
   };
 
   const handleCancel = () => {
@@ -106,35 +96,49 @@ function CourseDetailsForm() {
         />
 
         <div className="col-span-2 flex w-full items-center justify-end gap-2">
-          {!selectedCourseId && (
+          {!courseId && (
             <p className="mr-auto text-base text-red-500">
               Choose a course to edit its details
             </p>
           )}
           <div className="flex items-center justify-end gap-2">
-            <button
-              type="button"
-              className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-red-100 bg-white px-4 py-3 text-base font-semibold text-red-600 transition hover:bg-red-50"
-              onClick={handleDelete}
-              disabled={!selectedCourseId}
-            >
-              Delete
-            </button>
-            <button
-              type="button"
-              className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-base font-semibold text-white transition hover:bg-primary-700"
-              onClick={handleCancel}
-              disabled={!selectedCourseId}
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-base font-semibold text-white transition hover:bg-primary-700"
-              disabled={!selectedCourseId}
-            >
-              Save changes
-            </button>
+            <Modal>
+              <Modal.Open opens="delete-course">
+                <button
+                  type="button"
+                  className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-red-100 bg-white px-4 py-3 text-base font-semibold text-red-600 transition hover:bg-red-50"
+                  onClick={handleDelete}
+                  disabled={!courseId}
+                >
+                  Delete
+                </button>
+              </Modal.Open>
+              <Modal.Window name="delete-course">
+                <ConfirmationModal
+                  ButtonContent="Delete Course"
+                  Header="Delete Course"
+                  message={`Are you sure you want to delete ${title}`}
+                  onDelete={handleDelete}
+                />
+              </Modal.Window>
+              <button
+                type="button"
+                className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-base font-semibold text-white transition hover:bg-primary-700"
+                onClick={handleCancel}
+                disabled={!courseId}
+              >
+                Cancel
+              </button>
+              <Modal.Open opens="save-changes">
+                <button
+                  type="submit"
+                  className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-base font-semibold text-white transition hover:bg-primary-700"
+                  disabled={!courseId}
+                >
+                  Save changes
+                </button>
+              </Modal.Open>
+            </Modal>
           </div>
         </div>
       </form>

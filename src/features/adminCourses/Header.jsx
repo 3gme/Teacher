@@ -1,4 +1,30 @@
-function Header({ sectionCount, lessonCount }) {
+import { useQueryClient } from "@tanstack/react-query";
+import { useMemo } from "react";
+import { useSelector } from "react-redux";
+
+function Header() {
+  const queryClient = useQueryClient();
+  const { selectedIds } = useSelector((state) => state.admin);
+  const selectedCourseId = selectedIds.courseId;
+
+  const courses = queryClient.getQueryData(["Courses"]);
+
+  const selectedCourse = useMemo(
+    () => courses?.find((course) => course.courseId === selectedCourseId),
+    [courses, selectedCourseId],
+  );
+
+  const courseStats = useMemo(() => {
+    const sectionsCount = selectedCourse?.sections?.length || 0;
+    const lessonsCount =
+      selectedCourse?.sections?.reduce(
+        (total, section) => total + section.lessons?.length,
+        0,
+      ) || 0;
+
+    return { sectionsCount, lessonsCount };
+  }, [selectedCourse]);
+
   return (
     <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
       <div>
@@ -12,10 +38,10 @@ function Header({ sectionCount, lessonCount }) {
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div className="flex flex-wrap gap-3 text-base">
           <span className="rounded-xl bg-primary-50 px-4 py-2.5 font-semibold text-primary-700">
-            {sectionCount} sections
+            {courseStats?.sectionsCount} sections
           </span>
           <span className="rounded-xl bg-secondary-50 px-4 py-2.5 font-semibold text-secondary-700">
-            {lessonCount} lessons
+            {courseStats?.lessonsCount} lessons
           </span>
         </div>
       </div>

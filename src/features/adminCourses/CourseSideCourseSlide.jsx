@@ -23,7 +23,7 @@ function CourseSideCourseSlide({ course }) {
         {course.title}
       </span>
       <span className="mt-1.5 block text-sm text-ink-500">
-        {course.sections.length} sections
+        {course.sections?.length ?? 0} sections
       </span>
     </button>
   );

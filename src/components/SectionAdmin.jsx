@@ -1,7 +1,7 @@
 import Accordion from "./Accordion";
 import Modal from "./Modal";
 import SectionAdminHeader from "./SectionAdminHeader";
-import SectionDeleteModal from "./SectionDeleteModal";
+import ConfirmationModal from "./ConfirmationModal";
 import EditModal from "./EditModal";
 import SectionLessonsList from "./SectionLessonsList";
 
@@ -25,7 +25,11 @@ function SectionAdmin({ section }) {
         </Modal.Window>
 
         <Modal.Window name={deleteWindowName}>
-          <SectionDeleteModal section={section} />
+          <ConfirmationModal
+            Header="Delete Section"
+            message={`Are you sure you want to delete "${section.title}"? This action cannot be undone.`}
+            ButtonContent="Delete Section"
+          />
         </Modal.Window>
       </Accordion>
     </Modal>

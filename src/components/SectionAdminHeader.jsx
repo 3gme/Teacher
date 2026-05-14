@@ -6,7 +6,7 @@ import { FaChevronDown } from "react-icons/fa";
 function SectionAdminHeader({ section }) {
   const { isOpen, toggle } = useAccordionContext();
   return (
-    <div className="grid grid-cols-[1fr_auto] items-center gap-4 px-5 py-4">
+    <div className="grid sm:grid-cols-[1fr_auto] items-center gap-4 px-5 py-4">
       <h3 className="flex items-center gap-3 text-lg font-medium text-ink-800">
         <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary-200 text-lg font-bold text-ink-700">
           {section.orderIndex}

@@ -1,27 +1,16 @@
 import LoginForm from "../features/auth/LoginForm";
 import Navbar from "../components/Navbar";
 import useLogin from "../features/auth/useLogin";
-import { useGetUser } from "../features/auth/useGetUser";
 
 // TODO: Implement actual login logic
 function Login() {
-  const { login, isLoading, user } = useLogin();
-  const { mutate: getUser, ispending, data: userData, error } = useGetUser();
+  const { login, isLoading } = useLogin();
 
-  const loading = isLoading || ispending;
+  const loading = isLoading;
 
   function handleSubmit(data, e) {
     e.preventDefault();
     login(data);
-    getUser(user);
-
-    console.log("From Login\n\n");
-    console.log(user);
-    console.log("------------------");
-
-    console.log("From Login\n\n");
-    console.log(userData);
-    console.log("------------------");
   }
 
   return (
