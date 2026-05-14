@@ -9,30 +9,28 @@ function SectionAdmin({ section }) {
   const editWindowName = `edit-section-${section.title}`;
   const deleteWindowName = `delete-section-${section.title}`;
   return (
-    <Modal>
-      <Accordion>
-        <div className="rounded-2xl border border-primary-100 bg-white shadow-sm">
-          <Accordion.Header>
-            <SectionAdminHeader section={section} />
-          </Accordion.Header>
-          <Accordion.Content>
-            <SectionLessonsList lessons={section.lessons} />
-          </Accordion.Content>
-        </div>
+    <Accordion>
+      <div className="rounded-2xl border border-primary-100 bg-white shadow-sm">
+        <Accordion.Header>
+          <SectionAdminHeader section={section} />
+        </Accordion.Header>
+        <Accordion.Content>
+          <SectionLessonsList lessons={section.lessons} />
+        </Accordion.Content>
+      </div>
 
-        <Modal.Window name={editWindowName}>
-          <EditModal section={section} />
-        </Modal.Window>
+      <Modal.Window name={editWindowName}>
+        <EditModal section={section} />
+      </Modal.Window>
 
-        <Modal.Window name={deleteWindowName}>
-          <ConfirmationModal
-            Header="Delete Section"
-            message={`Are you sure you want to delete "${section.title}"? This action cannot be undone.`}
-            ButtonContent="Delete Section"
-          />
-        </Modal.Window>
-      </Accordion>
-    </Modal>
+      <Modal.Window name={deleteWindowName}>
+        <ConfirmationModal
+          Header="Delete Section"
+          message={`Are you sure you want to delete "${section.title}"? This action cannot be undone.`}
+          ButtonContent="Delete Section"
+        />
+      </Modal.Window>
+    </Accordion>
   );
 }
 

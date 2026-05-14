@@ -1,23 +1,22 @@
 import { useMemo } from "react";
-import { useSelector } from "react-redux";
-
+import { useSearchParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
+
 import CourseDetailsForm from "../features/adminCourses/CourseDetailsForm";
 import CoursesSide from "../features/adminCourses/CoursesSide";
 import Header from "../features/adminCourses/Header";
 import SectionsAndLessons from "../features/adminCourses/SectionsAndLessons";
 
 function AdminCourses() {
+  const [searchParams] = useSearchParams();
   const queryClient = useQueryClient();
   const courses = queryClient.getQueryData(["Courses"]);
 
-  const { selectedIds } = useSelector((state) => state.admin);
-  const selectedCourseId = selectedIds.courseId;
+  const selectedCourseId = +searchParams.get("courseId") || null;
 
-  const currentSelectedCourse = useMemo(
-    () => courses?.find((course) => course.courseId === selectedCourseId),
-    [courses, selectedCourseId],
-  );
+  const currentSelectedCourse = useMemo(() => {
+    return courses?.find((course) => course.courseId === selectedCourseId);
+  }, [courses, selectedCourseId]);
 
   return (
     <section className="space-y-6 pb-10 overflow-y-auto">

@@ -1,7 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setCourseId } from "./adminSlice";
+import { useSearchParams } from "react-router-dom";
 
 function CourseSideCourseSlide({ course }) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const handleClick = () => {
+    dispatch(setCourseId(course.courseId));
+    setSearchParams({ courseId: course.courseId });
+  };
   const selectedCourseId = useSelector(
     (state) => state.admin.selectedIds.courseId,
   );
@@ -12,7 +18,7 @@ function CourseSideCourseSlide({ course }) {
     <button
       key={course.courseId}
       type="button"
-      onClick={() => dispatch(setCourseId(course.courseId))}
+      onClick={handleClick}
       className={`w-full rounded-xl border px-4 py-3.5 text-left transition ${
         isSelected
           ? "border-primary-200 bg-primary-50"

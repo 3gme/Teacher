@@ -102,43 +102,41 @@ function CourseDetailsForm({ course }) {
             </p>
           )}
           <div className="flex items-center justify-end gap-2">
-            <Modal>
-              <Modal.Open opens="delete-course">
-                <button
-                  type="button"
-                  className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-red-100 bg-white px-4 py-3 text-base font-semibold text-red-600 transition hover:bg-red-50"
-                  onClick={handleDelete}
-                  disabled={!courseId}
-                >
-                  Delete
-                </button>
-              </Modal.Open>
-              <Modal.Window name="delete-course">
-                <ConfirmationModal
-                  ButtonContent="Delete Course"
-                  Header="Delete Course"
-                  message={`Are you sure you want to delete ${title}`}
-                  onDelete={handleDelete}
-                />
-              </Modal.Window>
+            <Modal.Open opens="delete-course">
               <button
                 type="button"
-                className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-base font-semibold text-white transition hover:bg-primary-700"
-                onClick={handleCancel}
+                className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-red-100 bg-white px-4 py-3 text-base font-semibold text-red-600 transition hover:bg-red-50"
+                onClick={handleDelete}
                 disabled={!courseId}
               >
-                Cancel
+                Delete
               </button>
-              <Modal.Open opens="save-changes">
-                <button
-                  type="submit"
-                  className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-base font-semibold text-white transition hover:bg-primary-700"
-                  disabled={!courseId}
-                >
-                  Save changes
-                </button>
-              </Modal.Open>
-            </Modal>
+            </Modal.Open>
+            <Modal.Window name="delete-course">
+              <ConfirmationModal
+                ButtonContent="Delete Course"
+                Header="Delete Course"
+                message={`Are you sure you want to delete ${title}`}
+                onDelete={handleDelete}
+              />
+            </Modal.Window>
+            <button
+              type="button"
+              className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-base font-semibold text-white transition hover:bg-primary-700"
+              onClick={handleCancel}
+              disabled={!courseId}
+            >
+              Cancel
+            </button>
+            <Modal.Open opens="save-changes">
+              <button
+                type="submit"
+                className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-base font-semibold text-white transition hover:bg-primary-700"
+                disabled={!courseId}
+              >
+                Save changes
+              </button>
+            </Modal.Open>
           </div>
         </div>
       </form>

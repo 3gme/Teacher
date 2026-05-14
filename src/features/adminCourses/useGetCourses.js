@@ -6,9 +6,7 @@ export default function useGetCourses() {
     queryKey: ["Courses"],
     queryFn: getCoursesApi,
     onSuccess: (data) => {
-      console.log("----------------------");
-      console.log("Courses fetched successfully", data);
-      console.log("----------------------");
+      console.log("Fetched courses successfully", data);
     },
     onError: (error) => {
       console.error("Failed to fetch courses", error);

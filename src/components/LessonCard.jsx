@@ -13,14 +13,12 @@ function LessonCard({ lesson }) {
       </div>
       <div className="flex items-center gap-3">
         <OrderField lesson={lesson} />
-        <Modal>
-          <AdminActions lesson={lesson} />
+        <AdminActions lesson={lesson} />
 
-          <Modal.Window name={`edit-section-${title}`}>
-            <EditModal lesson={lesson} />
-          </Modal.Window>
-          <Modal.Window name={`delete-section-${title}`}></Modal.Window>
-        </Modal>
+        <Modal.Window name={`edit-section-${title}`}>
+          <EditModal lesson={lesson} />
+        </Modal.Window>
+        <Modal.Window name={`delete-section-${title}`}></Modal.Window>
       </div>
     </li>
   );

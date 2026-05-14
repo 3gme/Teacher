@@ -3,7 +3,6 @@ import { deleteCourseApi } from "../../../services/apiCourses";
 
 export default function useDeleteCourse(close) {
   const queryClient = useQueryClient();
-  console.log(close);
   const {
     mutate: deleteCourse,
     isPending,
@@ -14,7 +13,7 @@ export default function useDeleteCourse(close) {
       queryClient.invalidateQueries({ queryKey: ["Courses"] });
       console.log("course Delete successfully");
       close();
-      console.log(close)
+      console.log(close);
     },
     onError: (error) => {
       console.error("Failed to delete course", error);

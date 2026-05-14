@@ -5,7 +5,7 @@ import AddSectionForm from "./AddSectionForm";
 
 function AddSection() {
   return (
-    <Modal>
+    <>
       <Modal.Open opens="addSectionFrom">
         <Button className="flex items-center gap-2">
           <FaPlus />
@@ -15,7 +15,7 @@ function AddSection() {
       <Modal.Window name="addSectionFrom">
         <AddSectionForm />
       </Modal.Window>
-    </Modal>
+    </>
   );
 }
 
