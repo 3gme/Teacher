@@ -1,6 +1,4 @@
-import { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useQueryClient } from "@tanstack/react-query";
 
 import CourseDetailsForm from "../features/adminCourses/CourseDetailsForm";
 import CoursesSide from "../features/adminCourses/CoursesSide";
@@ -9,14 +7,8 @@ import SectionsAndLessons from "../features/adminCourses/SectionsAndLessons";
 
 function AdminCourses() {
   const [searchParams] = useSearchParams();
-  const queryClient = useQueryClient();
-  const courses = queryClient.getQueryData(["Courses"]);
 
   const selectedCourseId = +searchParams.get("courseId") || null;
-
-  const currentSelectedCourse = useMemo(() => {
-    return courses?.find((course) => course.courseId === selectedCourseId);
-  }, [courses, selectedCourseId]);
 
   return (
     <section className="space-y-6 pb-10 overflow-y-auto">
@@ -24,10 +16,7 @@ function AdminCourses() {
 
       <div className="grid gap-6 xl:h-128 xl:grid-cols-[320px_1fr] pb-10 items-stretch max-h-144">
         <CoursesSide />
-        <CourseDetailsForm
-          key={selectedCourseId}
-          course={currentSelectedCourse}
-        />
+        <CourseDetailsForm key={selectedCourseId} />
       </div>
 
       <div className="space-y-6">

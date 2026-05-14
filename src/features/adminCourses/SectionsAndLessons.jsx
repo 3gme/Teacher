@@ -1,16 +1,16 @@
-import { useSelector } from "react-redux";
+import { useQueryClient } from "@tanstack/react-query";
 import SectionAdmin from "../../components/SectionAdmin";
 import SectionsAndLessonsHeader from "../../components/SectionsAndLessonsHeader";
+import { useSearchParams } from "react-router-dom";
 
 function SectionsAndLessons() {
-  const selectedCourse = useSelector((state) => {
-    const selectedCourseId = state.admin.selectedIds.courseId || 1;
-    return state.admin.courses.find(
-      (course) => course.courseId === selectedCourseId,
-    );
-  });
+  const queryClient = useQueryClient();
+  const [searchParams] = useSearchParams();
+  const courseId = searchParams.get("courseId") || null;
+  const selectedCourse = queryClient.getQueryData(["course", courseId]);
+  console.log(selectedCourse)
 
-  const sectionsCount = selectedCourse?.sections.length || 0;
+  const sectionsCount = selectedCourse?.sections?.length || 0;
 
   if (!selectedCourse) {
     return (
@@ -26,9 +26,13 @@ function SectionsAndLessons() {
         <SectionsAndLessonsHeader sectionsCount={sectionsCount} />
 
         <div className="space-y-4">
-          {selectedCourse.sections.map((section) => (
-            <SectionAdmin key={section.sectionId} section={section} />
-          ))}
+          {selectedCourse.sections ? (
+            selectedCourse?.sections?.map((section) => (
+              <SectionAdmin key={section.sectionId} section={section} />
+            ))
+          ) : (
+            <p className="text-base text-ink-600">No sections available</p>
+          )}
         </div>
       </article>
     </div>

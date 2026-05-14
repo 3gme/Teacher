@@ -1,9 +1,7 @@
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
 import InputField from "./InputField";
 import Button from "./Button";
 import Modal, { useModalContext } from "./Modal";
-import { updateSection } from "../features/adminCourses/adminSlice";
 
 const fields = [
   {
@@ -35,7 +33,6 @@ const fields = [
 function EditModal({ section, lesson }) {
   const title = section ? section.title : lesson.title;
   const orderIndex = section ? section.orderIndex : lesson.orderIndex;
-  const dispatch = useDispatch();
   const { close } = useModalContext();
   const {
     register,
@@ -49,22 +46,7 @@ function EditModal({ section, lesson }) {
   });
 
   const onSubmit = (data) => {
-    section &&
-      dispatch(
-        updateSection({
-          sectionId: section.sectionId,
-          title: data.title,
-          orderIndex: data.orderIndex,
-        }),
-      );
-    lesson &&
-      dispatch(
-        updateSection({
-          lessonId: lesson.lessonId,
-          title: data.title,
-          orderIndex: data.orderIndex,
-        }),
-      );
+    console.log(data);
     close();
   };
 

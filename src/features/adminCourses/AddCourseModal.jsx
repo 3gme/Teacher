@@ -1,6 +1,4 @@
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { addCourse } from "./adminSlice";
 import InputLabel from "../../components/InputLabel";
 import Modal, { useModalContext } from "../../components/Modal";
 import InputFile from "../../components/InputFile";
@@ -9,7 +7,6 @@ import useAddCourse from "./useAddCourse";
 function AddCourseModal() {
   // const courses = useSelector((state) => state.admin.courses);
   const { close } = useModalContext();
-  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -29,17 +26,6 @@ function AddCourseModal() {
   );
 
   const onSubmit = (data) => {
-    dispatch(
-      addCourse({
-        // courseId: nextCourseId,
-        title: data.title,
-        price: Number(data.price),
-        description: data.description,
-        image: data.image[0],
-        sections: [],
-      }),
-    );
-
     addCourseMutation({
       title: data.title,
       price: Number(data.price),

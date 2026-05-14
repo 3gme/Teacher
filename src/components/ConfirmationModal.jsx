@@ -1,9 +1,15 @@
 import Button from "./Button";
 import Modal from "./Modal";
 
-function ConfirmationModal({ Header, message, ButtonContent, onDelete }) {
-  const handleDelete = () => {
-    onDelete();
+function ConfirmationModal({
+  Header,
+  message,
+  ButtonContent,
+  onClick,
+  typeButton,
+}) {
+  const handleClick = () => {
+    onClick();
   };
 
   return (
@@ -17,7 +23,7 @@ function ConfirmationModal({ Header, message, ButtonContent, onDelete }) {
         <Modal.Close>
           <Button type="secondary">Cancel</Button>
         </Modal.Close>
-        <Button type="danger" onClick={handleDelete}>
+        <Button type={typeButton || "danger"} onClick={handleClick}>
           {ButtonContent}
         </Button>
       </div>

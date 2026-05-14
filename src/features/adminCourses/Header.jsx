@@ -1,11 +1,11 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 
 function Header() {
+  const [searchParams] = useSearchParams();
   const queryClient = useQueryClient();
-  const { selectedIds } = useSelector((state) => state.admin);
-  const selectedCourseId = selectedIds.courseId;
+  const selectedCourseId = +searchParams.get("courseId") || null;
 
   const courses = queryClient.getQueryData(["Courses"]);
 

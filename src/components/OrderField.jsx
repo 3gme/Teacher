@@ -1,12 +1,6 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import {
-  updateLesson,
-  updateSection,
-} from "../features/adminCourses/adminSlice";
 
 function OrderField({ section, lesson }) {
-  const dispatch = useDispatch();
   const currentIndex = section ? section.orderIndex : lesson.orderIndex;
   const [orderIndex, setOrderIndex] = useState(currentIndex);
 
@@ -19,24 +13,6 @@ function OrderField({ section, lesson }) {
     }
 
     if (nextOrderIndex === currentIndex) return;
-
-    section &&
-      dispatch(
-        updateSection({
-          sectionId: section.sectionId,
-          title: section.title,
-          orderIndex: nextOrderIndex,
-        }),
-      );
-
-    lesson &&
-      dispatch(
-        updateLesson({
-          lessonId: lesson.lessonId,
-          title: lesson.title,
-          orderIndex: nextOrderIndex,
-        }),
-      );
   };
 
   return (

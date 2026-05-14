@@ -3,6 +3,8 @@ import InputField from "./InputField";
 import Button from "./Button";
 import { useForm } from "react-hook-form";
 import { useModalContext } from "./Modal";
+import { useSearchParams } from "react-router-dom";
+import useAddSection from "../features/adminCourses/useAddSection";
 
 const fields = [
   {
@@ -27,14 +29,30 @@ const fields = [
 ];
 
 function AddSectionForm() {
+  const [searchParams] = useSearchParams();
+  const courseId = searchParams.get("courseId");
+
+  const { addSection } = useAddSection();
   const {
     register,
     formState: { errors },
+    handleSubmit,
   } = useForm();
+
+  function onSubmit(data) {
+    const sectionData = {
+      courseId,
+      title: data.sectionTitle,
+      orderIndex: Number(data.orderIndex),
+    };
+    console.log(sectionData);
+    addSection(sectionData);
+  }
+
   const { close } = useModalContext();
 
   return (
-    <form className="space-y-4">
+    <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
       {fields.map((field) => (
         <InputField
           key={field.id}

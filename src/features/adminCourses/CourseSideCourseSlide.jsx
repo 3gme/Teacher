@@ -1,17 +1,12 @@
-import { useDispatch, useSelector } from "react-redux";
-import { setCourseId } from "./adminSlice";
 import { useSearchParams } from "react-router-dom";
 
 function CourseSideCourseSlide({ course }) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const selectedCourseId = +searchParams.get("courseId") || null;
   const handleClick = () => {
-    dispatch(setCourseId(course.courseId));
     setSearchParams({ courseId: course.courseId });
   };
-  const selectedCourseId = useSelector(
-    (state) => state.admin.selectedIds.courseId,
-  );
-  const dispatch = useDispatch();
+
   const isSelected = course.courseId === selectedCourseId;
 
   return (

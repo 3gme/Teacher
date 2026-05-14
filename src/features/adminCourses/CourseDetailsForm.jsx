@@ -5,27 +5,50 @@ import InputFile from "../../components/InputFile";
 import InputLabel from "../../components/InputLabel";
 import Modal, { useModalContext } from "../../components/Modal";
 import useDeleteCourse from "./useDeleteCourse";
+import useUpdateCourse from "./useUpdateCourse";
+import useGetCourseById from "./useGetCourseById";
+import { useSearchParams } from "react-router-dom";
 
-function CourseDetailsForm({ course }) {
-  const { courseId, title, price, description } = course || {};
+function CourseDetailsForm() {
+  const [searchParams] = useSearchParams();
+  const courseId = searchParams.get("courseId");
+  const { course } = useGetCourseById(courseId);
+  const { title, price, description, imageUrl } = course || {};
   const { close } = useModalContext();
   const { deleteCourse } = useDeleteCourse(close);
+  const { updateCourse } = useUpdateCourse(close);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      title: title || "",
+      price: price || "",
+      description: description || "",
+      image: null,
+    },
+  });
 
   const handleDelete = () => {
     deleteCourse(courseId);
   };
 
-  const onSubmit = (data, e) => {
-    e.preventDefault();
-    console.log(data);
+  const onSubmit = (data) => {
     console.log(courseId);
+    const courseData = {
+      courseId,
+      imageUrl,
+      title: data.title,
+      price: data.price,
+      description: data.description,
+    };
+    updateCourse(courseData);
   };
+
+  const handleSaveChanges = handleSubmit(onSubmit);
 
   const handleCancel = () => {
     reset();
@@ -39,7 +62,7 @@ function CourseDetailsForm({ course }) {
 
       <form
         className="lg:grid flex flex-col gap-4 grid-cols-1 lg:grid-cols-2"
-        onSubmit={(e) => handleSubmit(onSubmit)(e)}
+        onSubmit={handleSubmit(onSubmit)}
       >
         <InputLabel
           defaultValue={title}
@@ -117,7 +140,7 @@ function CourseDetailsForm({ course }) {
                 ButtonContent="Delete Course"
                 Header="Delete Course"
                 message={`Are you sure you want to delete ${title}`}
-                onDelete={handleDelete}
+                onClick={handleDelete}
               />
             </Modal.Window>
             <button
@@ -130,13 +153,22 @@ function CourseDetailsForm({ course }) {
             </button>
             <Modal.Open opens="save-changes">
               <button
-                type="submit"
+                type="button"
                 className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-base font-semibold text-white transition hover:bg-primary-700"
                 disabled={!courseId}
               >
                 Save changes
               </button>
             </Modal.Open>
+            <Modal.Window name="save-changes">
+              <ConfirmationModal
+                ButtonContent="Save Changes"
+                Header="Save Changes"
+                message={`Are you sure you want to save changes to ${title}`}
+                onClick={handleSaveChanges}
+                typeButton="primary"
+              />
+            </Modal.Window>
           </div>
         </div>
       </form>
