@@ -8,9 +8,12 @@ export default function useAddSection() {
 
   const { mutate: addSection, isPending } = useMutation({
     mutationFn: (sectionData) => addSectionApi(sectionData),
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
       console.log("Section added successfully");
-      queryClient.invalidateQueries("courses");
+      queryClient.invalidateQueries({
+        queryKey: ["course", variables?.courseId],
+      });
+      queryClient.invalidateQueries({ queryKey: ["Courses"] });
       close();
     },
     onError: (error) => {

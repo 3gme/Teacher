@@ -1,18 +1,11 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
+import useGetCourseById from "./useGetCourseById";
 
 function Header() {
   const [searchParams] = useSearchParams();
-  const queryClient = useQueryClient();
-  const selectedCourseId = +searchParams.get("courseId") || null;
-
-  const courses = queryClient.getQueryData(["Courses"]);
-
-  const selectedCourse = useMemo(
-    () => courses?.find((course) => course.courseId === selectedCourseId),
-    [courses, selectedCourseId],
-  );
+  const selectedCourseId = searchParams.get("courseId") || null;
+  const { course: selectedCourse } = useGetCourseById(selectedCourseId);
 
   const courseStats = useMemo(() => {
     const sectionsCount = selectedCourse?.sections?.length || 0;

@@ -4,19 +4,21 @@ import ConfirmationModal from "../../components/ConfirmationModal";
 import InputFile from "../../components/InputFile";
 import InputLabel from "../../components/InputLabel";
 import Modal, { useModalContext } from "../../components/Modal";
+import Spinner from "../../components/Spinner";
 import useDeleteCourse from "./useDeleteCourse";
 import useUpdateCourse from "./useUpdateCourse";
 import useGetCourseById from "./useGetCourseById";
 import { useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
 
 function CourseDetailsForm() {
+  const { close } = useModalContext();
   const [searchParams] = useSearchParams();
   const courseId = searchParams.get("courseId");
-  const { course } = useGetCourseById(courseId);
-  const { title, price, description, imageUrl } = course || {};
-  const { close } = useModalContext();
+  const { course, isPending } = useGetCourseById(courseId);
   const { deleteCourse } = useDeleteCourse(close);
   const { updateCourse } = useUpdateCourse(close);
+  const { title, price, description, imageUrl } = course || {};
 
   const {
     register,
@@ -25,12 +27,23 @@ function CourseDetailsForm() {
     reset,
   } = useForm({
     defaultValues: {
-      title: title || "",
-      price: price || "",
-      description: description || "",
+      title: "",
+      price: "",
+      description: "",
       image: null,
     },
   });
+
+  useEffect(() => {
+    if (!course) return;
+
+    reset({
+      title: course.title || "",
+      price: course.price || "",
+      description: course.description || "",
+      image: null,
+    });
+  }, [course, reset]);
 
   const handleDelete = () => {
     deleteCourse(courseId);
@@ -53,6 +66,17 @@ function CourseDetailsForm() {
   const handleCancel = () => {
     reset();
   };
+
+  if (courseId && (isPending || !course)) {
+    return (
+      <article className="rounded-2xl border border-surface-200 bg-white p-5 shadow-sm lg:p-6">
+        <div className="flex min-h-80 items-center justify-center">
+          <Spinner />
+        </div>
+      </article>
+    );
+  }
+
   return (
     <article className="rounded-2xl border border-surface-200 bg-white p-5 shadow-sm lg:p-6">
       <div className="mb-6 flex items-center gap-2 text-base font-semibold text-ink-800">

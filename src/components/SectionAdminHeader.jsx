@@ -1,6 +1,6 @@
 import { useAccordionContext } from "./Accordion";
 import AdminActions from "./AdminActions";
-import OrderField from "./OrderField";
+// import OrderField from "./OrderField";
 import { FaChevronDown } from "react-icons/fa";
 
 function SectionAdminHeader({ section }) {
@@ -14,7 +14,7 @@ function SectionAdminHeader({ section }) {
         {section.title}
       </h3>
       <div className="flex items-center gap-3">
-        <OrderField section={section} />
+        {/* <OrderField section={section} /> */}
         <AdminActions section={section} />
         <button
           type="button"

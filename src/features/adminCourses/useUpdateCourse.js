@@ -7,7 +7,7 @@ export default function useUpdateCourse(close) {
     mutationFn: (courseData) => updateCourseApi(courseData),
     onSuccess: () => {
       console.log("Course updated successfully");
-      queryClient.invalidateQueries("courses");
+      queryClient.invalidateQueries({ queryKey: ["Courses"] });
       close();
     },
     onError: (error) => {

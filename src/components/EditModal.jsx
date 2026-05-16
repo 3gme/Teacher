@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
-import InputField from "./InputField";
+import { useSearchParams } from "react-router-dom";
+import useUpdateSection from "../features/adminCourses/useUpdateSection";
 import Button from "./Button";
+import InputField from "./InputField";
 import Modal, { useModalContext } from "./Modal";
 
 const fields = [
@@ -31,9 +33,13 @@ const fields = [
 ];
 
 function EditModal({ section, lesson }) {
+  const [searchParams] = useSearchParams();
+  const { close } = useModalContext();
+
+  const courseId = searchParams.get("courseId");
   const title = section ? section.title : lesson.title;
   const orderIndex = section ? section.orderIndex : lesson.orderIndex;
-  const { close } = useModalContext();
+
   const {
     register,
     handleSubmit,
@@ -45,19 +51,28 @@ function EditModal({ section, lesson }) {
     },
   });
 
+  const { updateSection } = useUpdateSection(courseId, close);
+
   const onSubmit = (data) => {
-    console.log(data);
-    close();
+    if (section) {
+      console.log("Editing section with data:", data);
+      const updatedSection = {
+        sectionId: section.sectionId,
+        courseId,
+        ...data,
+      };
+      updateSection(updatedSection);
+    }
   };
 
   return (
     <div>
       <div className="mb-6">
         <h2 className="text-xl font-semibold text-ink-900">
-          Edit {section?.title || lesson?.title}
+          Edit {title || title}
         </h2>
         <p className="mt-2 text-sm text-ink-500">
-          Update the {section?.title || lesson?.title} title and order.
+          Update the {title || title} title and order.
         </p>
       </div>
 

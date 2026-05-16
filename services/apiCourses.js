@@ -170,6 +170,46 @@ async function addSectionApi(sectionData) {
   }
 }
 
+async function deleteSectionApi(courseId, sectionId) {
+  const sessionTokenRaw = localStorage.getItem("sessionToken");
+  console.log(courseId, sectionId);
+  const myURL = `${API_BASE_URL}/api/Courses/${courseId}/Sections/${sectionId}`;
+
+  const res = await fetch(myURL, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${sessionTokenRaw}`,
+    },
+  });
+
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error(errorText || "Failed to delete section");
+  }
+}
+
+async function updateSectionApi(sectionData) {
+  const { sectionId, title, orderIndex, courseId } = sectionData;
+  const sessionTokenRaw = localStorage.getItem("sessionToken");
+
+  const myURL = `${API_BASE_URL}/api/Courses/${courseId}/Sections/${sectionId}`;
+  const bodyData = JSON.stringify({ title, orderIndex, sectionId });
+
+  const res = await fetch(myURL, {
+    method: "PATCH",
+    headers: {
+      "content-type": "application/json",
+      Authorization: `Bearer ${sessionTokenRaw}`,
+    },
+    body: bodyData,
+  });
+
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error(errorText || "Failed to update section");
+  }
+}
+
 export {
   addCourseApi,
   getCoursesApi,
@@ -177,4 +217,6 @@ export {
   updateCourseApi,
   addSectionApi,
   getCourseByIdApi,
+  updateSectionApi,
+  deleteSectionApi,
 };

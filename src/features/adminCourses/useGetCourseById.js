@@ -9,6 +9,7 @@ export default function useGetCourseById(courseId) {
   } = useQuery({
     queryKey: ["course", courseId],
     queryFn: () => getCourseByIdApi(courseId),
+    enabled: Boolean(courseId),
     onError: (error) => {
       console.error("Failed to fetch course:", error);
     },

@@ -1,16 +1,25 @@
-import { useQueryClient } from "@tanstack/react-query";
 import SectionAdmin from "../../components/SectionAdmin";
 import SectionsAndLessonsHeader from "../../components/SectionsAndLessonsHeader";
 import { useSearchParams } from "react-router-dom";
+import useGetCourseById from "./useGetCourseById";
+import Spinner from "../../components/Spinner";
 
 function SectionsAndLessons() {
-  const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
   const courseId = searchParams.get("courseId") || null;
-  const selectedCourse = queryClient.getQueryData(["course", courseId]);
-  console.log(selectedCourse)
+  const { course: selectedCourse, isPending } = useGetCourseById(courseId);
 
   const sectionsCount = selectedCourse?.sections?.length || 0;
+
+  if (courseId && isPending) {
+    return (
+      <div className="rounded-2xl border border-surface-200 bg-white p-5 shadow-sm">
+        <div className="flex min-h-48 items-center justify-center">
+          <Spinner />
+        </div>
+      </div>
+    );
+  }
 
   if (!selectedCourse) {
     return (
