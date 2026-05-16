@@ -5,7 +5,6 @@ function AdminActions({ section, lesson }) {
   const currentTitle = section ? section.title : lesson.title;
   const editWindowName = `edit-section-${currentTitle}`;
   const deleteWindowName = `delete-section-${currentTitle}`;
-  console.log(section);
 
   return (
     <div className="flex items-center gap-3">

@@ -1,7 +1,9 @@
 import { useForm } from "react-hook-form";
 import InputField from "./InputField";
-import Modal from "./Modal";
+import Modal, { useModalContext } from "./Modal";
 import Button from "./Button";
+import { useSearchParams } from "react-router-dom";
+import useAddLesson from "../features/adminCourses/useAddLesson";
 
 const fields = [
   {
@@ -9,16 +11,35 @@ const fields = [
     label: "title",
     type: "text",
     placeholder: "title of the lesson",
+    registerOptions: { required: "Title is required" },
   },
   {
     id: "orderIndex",
     label: "Order",
     type: "number",
     placeholder: "e.g. 1",
+    registerOptions: {
+      required: "Order index is required",
+      valueAsNumber: true,
+      min: { value: 1, message: "Order index must be at least 1" },
+    },
+  },
+  {
+    id: "videoUrl",
+    label: "Video URL",
+    type: "text",
+    placeholder: "URL of the video",
+    registerOptions: { required: "Video URL is required" },
   },
 ];
 
-function AddLessonModal() {
+function AddLessonModal({ sectionId }) {
+  const [searchParams] = useSearchParams();
+  const courseId = searchParams.get("courseId");
+
+  const { close } = useModalContext();
+
+  const { addLesson } = useAddLesson(courseId, close);
   const {
     register,
     handleSubmit,
@@ -27,6 +48,7 @@ function AddLessonModal() {
 
   const onSubmit = (data) => {
     console.log(data);
+    addLesson({ sectionId, ...data });
   };
 
   return (

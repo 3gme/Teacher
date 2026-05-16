@@ -2,7 +2,7 @@ import AddLessonModal from "./AddLessonModal";
 import LessonCard from "./LessonCard";
 import Modal from "./Modal";
 
-function SectionLessonsList({ lessons }) {
+function SectionLessonsList({ lessons, sectionId }) {
   return (
     <div className="border-t border-primary-100 px-5 py-4">
       <div className="mb-4 flex items-center gap-3">
@@ -16,7 +16,7 @@ function SectionLessonsList({ lessons }) {
         {lessons.length > 0 ? (
           <ul className="space-y-2">
             {lessons.map((lesson) => (
-              <LessonCard key={lesson.lessonId} lesson={lesson} />
+              <LessonCard key={lesson.lessonId} lessonId={lesson.lessonId} />
             ))}
           </ul>
         ) : (
@@ -33,7 +33,7 @@ function SectionLessonsList({ lessons }) {
         </button>
       </Modal.Open>
       <Modal.Window name="addLesson">
-        <AddLessonModal />
+        <AddLessonModal sectionId={sectionId} />
       </Modal.Window>
     </div>
   );

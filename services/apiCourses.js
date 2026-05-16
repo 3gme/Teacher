@@ -210,6 +210,94 @@ async function updateSectionApi(sectionData) {
   }
 }
 
+/**
+ * ----------------------
+ * LESSONS API CALLS
+ * ----------------------
+ */
+
+async function addLessonApi(lessonData) {
+  const { sectionId, title, orderIndex, videoUrl } = lessonData;
+  const sessionTokenRaw = localStorage.getItem("sessionToken");
+
+  const myURL = `${API_BASE_URL}/api/Sections/${sectionId}/Lessons`;
+  const bodyData = JSON.stringify({ title, orderIndex, videoUrl, sectionId });
+
+  const res = await fetch(myURL, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      Authorization: `Bearer ${sessionTokenRaw}`,
+    },
+    body: bodyData,
+  });
+
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error(errorText || "Failed to add lesson");
+  }
+}
+
+async function getLessonByIdApi(lessonId) {
+  const sessionTokenRaw = localStorage.getItem("sessionToken");
+  const myURL = `${API_BASE_URL}/api/Lessons/${lessonId}`;
+
+  const res = await fetch(myURL, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${sessionTokenRaw}`,
+    },
+  });
+
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error(errorText || "Failed to fetch lesson");
+  }
+
+  const lesson = await res.json();
+  console.log("lesson: " + lesson);
+  return lesson;
+}
+
+async function updateLessonApi(lessonData) {
+  const { lessonId, title, orderIndex, videoUrl } = lessonData;
+  const sessionTokenRaw = localStorage.getItem("sessionToken");
+
+  const myURL = `${API_BASE_URL}/api/Lessons/${lessonId}`;
+  const bodyData = JSON.stringify({ title, orderIndex, videoUrl });
+
+  const res = await fetch(myURL, {
+    method: "PATCH",
+    headers: {
+      "content-type": "application/json",
+      Authorization: `Bearer ${sessionTokenRaw}`,
+    },
+    body: bodyData,
+  });
+
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error(errorText || "Failed to update lesson");
+  }
+}
+
+async function deleteLessonApi(lessonId) {
+  const sessionTokenRaw = localStorage.getItem("sessionToken");
+  const myURL = `${API_BASE_URL}/api/Lessons/${lessonId}`;
+
+  const res = await fetch(myURL, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${sessionTokenRaw}`,
+    },
+  });
+
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error(errorText || "Failed to delete lesson");
+  }
+}
+
 export {
   addCourseApi,
   getCoursesApi,
@@ -219,4 +307,8 @@ export {
   getCourseByIdApi,
   updateSectionApi,
   deleteSectionApi,
+  addLessonApi,
+  deleteLessonApi,
+  updateLessonApi,
+  getLessonByIdApi,
 };

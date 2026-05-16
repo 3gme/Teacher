@@ -29,7 +29,7 @@ function SectionAdmin({ section }) {
           <SectionAdminHeader section={section} />
         </Accordion.Header>
         <Accordion.Content>
-          <SectionLessonsList lessons={section.lessons} />
+          <SectionLessonsList lessons={section.lessons} sectionId={sectionId} />
         </Accordion.Content>
       </div>
 

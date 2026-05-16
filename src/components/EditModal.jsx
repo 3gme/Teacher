@@ -4,6 +4,7 @@ import useUpdateSection from "../features/adminCourses/useUpdateSection";
 import Button from "./Button";
 import InputField from "./InputField";
 import Modal, { useModalContext } from "./Modal";
+import useUpdateLesson from "../features/adminCourses/useUpdateLesson";
 
 const fields = [
   {
@@ -32,6 +33,16 @@ const fields = [
   },
 ];
 
+const UrlField = {
+  id: "videoUrl",
+  label: "Video URL",
+  type: "text",
+  placeholder: "e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  useFormRegister: {
+    required: "Video URL is required",
+  },
+};
+
 function EditModal({ section, lesson }) {
   const [searchParams] = useSearchParams();
   const { close } = useModalContext();
@@ -39,7 +50,9 @@ function EditModal({ section, lesson }) {
   const courseId = searchParams.get("courseId");
   const title = section ? section.title : lesson.title;
   const orderIndex = section ? section.orderIndex : lesson.orderIndex;
+  const vidUrl = lesson ? lesson.videoUrl : "";
 
+  console.log(lesson);
   const {
     register,
     handleSubmit,
@@ -48,10 +61,12 @@ function EditModal({ section, lesson }) {
     defaultValues: {
       title: title,
       orderIndex: orderIndex,
+      videoUrl: vidUrl,
     },
   });
 
   const { updateSection } = useUpdateSection(courseId, close);
+  const { updateLesson } = useUpdateLesson(close);
 
   const onSubmit = (data) => {
     if (section) {
@@ -62,17 +77,22 @@ function EditModal({ section, lesson }) {
         ...data,
       };
       updateSection(updatedSection);
+    } else if (lesson) {
+      console.log("Editing lesson with data:", data);
+      const updatedLesson = {
+        lessonId: lesson.lessonId,
+        ...data,
+      };
+      updateLesson(updatedLesson);
     }
   };
 
   return (
     <div>
       <div className="mb-6">
-        <h2 className="text-xl font-semibold text-ink-900">
-          Edit {title || title}
-        </h2>
+        <h2 className="text-xl font-semibold text-ink-900">Edit {title}</h2>
         <p className="mt-2 text-sm text-ink-500">
-          Update the {title || title} title and order.
+          Update the {title} title and order.
         </p>
       </div>
 
@@ -85,6 +105,13 @@ function EditModal({ section, lesson }) {
             error={errors[field.id]}
           />
         ))}
+        {lesson && (
+          <InputField
+            field={UrlField}
+            register={register}
+            error={errors[UrlField.id]}
+          />
+        )}
 
         <div className="flex justify-end gap-3 pt-2">
           <Modal.Close>
