@@ -13,7 +13,7 @@ function LessonCard({ lessonId }) {
   const [searchParams] = useSearchParams();
   const courseId = searchParams.get("courseId");
   const { deleteLesson } = useDeleteLesson(courseId, close);
-  console.log(lesson);
+
   if (!lesson || isPending) {
     return <Spinner />;
   }

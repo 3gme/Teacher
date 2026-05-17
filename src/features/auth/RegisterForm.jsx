@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import Logo from "../../components/Logo";
 import InputField from "../../components/InputField";
 import Button from "../../components/Button";
+import useRegister from "./useRegister";
 
 const fields = [
   {
@@ -52,6 +53,13 @@ const fields = [
     useFormRegister: { required: "Phone number is required" },
   },
   {
+    id: "parentPhone",
+    label: "Parent's phone number",
+    type: "tel",
+    placeholder: "01012345678",
+    useFormRegister: { required: "Parent's phone number is required" },
+  },
+  {
     id: "gov",
     label: "Governorate",
     type: "text",
@@ -83,9 +91,14 @@ const fields = [
     useFormRegister: {
       required: "Password is required",
       minLength: {
-        value: 6,
-        message: "Password must be at least 6 characters",
+        value: 7,
+        message: "Password must be at least 7 characters",
       },
+      // pattern: {
+      //   value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{7,}$/,
+      //   message:
+      //     "Password must contain at least one upper letter and one lower letter and one number, and be at least 7 characters long",
+      // },
     },
   },
   {
@@ -100,15 +113,31 @@ const fields = [
 ];
 
 function RegisterForm() {
+  const { register: registerMutation, isPending } = useRegister();
+
   const {
     register,
     handleSubmit,
     getValues,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      fname: "mahmoud",
+      mname: "ezzat",
+      lname: "ahmed",
+      phoneNumber: "01012345678",
+      parentPhone: "01012345678",
+      gov: "Cairo",
+      city: "Cairo",
+      email: "mahmoud.ezzat@example.com",
+      password: "Password$1",
+      confirmPassword: "Password$1",
+    },
+  });
 
   const onSubmit = (data) => {
     console.log(data);
+    registerMutation(data);
   };
 
   return (
@@ -155,8 +184,13 @@ function RegisterForm() {
               key={field.id}
             />
           ))}
-          <Button type="submit" className="mt-8 w-full" isSubmit={true}>
-            Register
+          <Button
+            type="submit"
+            className="mt-8 w-full"
+            isSubmit={true}
+            disabled={isPending}
+          >
+            {isPending ? "Registering..." : "Register"}
           </Button>
         </form>
 

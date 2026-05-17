@@ -1,18 +1,18 @@
 import { useState } from "react";
 import MainNavMenu from "./MainNavMenu";
 import MainNavMobileMenu from "./MainNavMobileMenu";
+import useGetUser from "../features/auth/useGetUser";
 // import { useGetUser } from "../features/auth/useGetUser";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // const user = useGetUser();
-  // console.log(user);
+  const user = useGetUser();
 
-  // TODO: Replace with actual auth state
+  const userRole = user?.roles[0] || "guest";
+
   const handleCloseMenu = () => setIsMenuOpen(false);
-  const isLogin = false; // Assuming user is null when not logged in
-  // const isAdmin = user?.user?.role === "admin"; // Assuming user object has a role property
-  const isAdmin = true;
+  const isLogin = !!user;
+  const isAdmin = userRole === "Admin";
 
   return (
     <header className="sticky top-0 z-30 border-b border-primary-800 bg-primary text-primary-foreground shadow-md">

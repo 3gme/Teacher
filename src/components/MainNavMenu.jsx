@@ -1,6 +1,7 @@
 import { IoLogOut } from "react-icons/io5";
 import { Link, NavLink } from "react-router-dom";
 import Logo from "./Logo";
+import { logoutApi } from "../../services/apiUser";
 
 function MainNavMenu({
   isMenuOpen,
@@ -18,6 +19,11 @@ function MainNavMenu({
         ? "bg-primary-800 text-white"
         : "text-primary-50 hover:bg-primary-800 hover:text-white"
     }`;
+
+  const handleLogout = () => {
+    logoutApi();
+    handleCloseMenu();
+  };
 
   return (
     <div>
@@ -79,7 +85,7 @@ function MainNavMenu({
           >
             Courses
           </NavLink>
-          {isLogin ? (
+          {!isLogin ? (
             <>
               <NavLink
                 to="/login"
@@ -109,7 +115,7 @@ function MainNavMenu({
               <NavLink
                 to="/account"
                 className={getLinkClass}
-                onClick={handleCloseMenu}
+                onClick={handleLogout}
               >
                 <IoLogOut className="text-xl" />
               </NavLink>

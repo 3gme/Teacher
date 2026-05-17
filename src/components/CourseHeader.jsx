@@ -4,8 +4,8 @@ function CourseHeader({ course }) {
   const { title, description, price, imageUrl, courseId } = course;
 
   return (
-    <div className="bg-white rounded-2xl shadow overflow-hidden">
-      <img src={imageUrl} alt="course" className="w-full h-64 object-cover" />
+    <div className="bg-white rounded-2xl shadow overflow-hidden grid md:grid-cols-2">
+      <img src={imageUrl} alt="course" className="w-full object-cover" />
       <div className="p-6">
         <h1 className="text-3xl font-bold text-ink-900">{title}</h1>
         <p className="text-ink-500 mt-2">{description}</p>

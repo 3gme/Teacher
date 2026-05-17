@@ -14,7 +14,7 @@ import Lessonage from "./pages/Lessonpage";
 import Dashboard from "./pages/Dashboard";
 import DashboardLayout from "./components/DashboardLayout";
 import AdminCourses from "./pages/AdminCourses";
-import ProtectedRouter from "./pages/ProtectedRouter";
+// import ProtectedRouter from "./pages/ProtectedRouter";
 import Modal from "./components/Modal";
 // import ProtectedAdminRouter from "./pages/ProtectedAdminRouter";
 
@@ -33,9 +33,9 @@ function App() {
             <Route
               path="/"
               element={
-                <ProtectedRouter>
-                  <AppLayout />
-                </ProtectedRouter>
+                // <ProtectedRouter>
+                <AppLayout />
+                // </ProtectedRouter>
               }
             >
               <Route index element={<Navigate to="/about" replace />} />

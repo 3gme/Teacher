@@ -1,7 +1,20 @@
 import CourseCard from "../components/CourseCard";
-import courses from "../data/CoursesData.json";
+import Spinner from "../components/Spinner";
+import useGetCourses from "../features/adminCourses/useGetCourses";
 
 function Courses() {
+  const { courses, isLoading } = useGetCourses();
+
+  if (isLoading || !courses) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="ease-linear rounded-full border-8 border-t-8 border-gray-200 h-16 w-16">
+          <Spinner />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <section className="min-h-screen bg-surface px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">

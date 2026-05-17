@@ -7,6 +7,7 @@ function Button({
   type = "primary",
   className = "",
   isSubmit = false,
+  disabled = false,
 }) {
   const types = {
     primary:
@@ -35,6 +36,7 @@ function Button({
       className={`${classname}${className ? ` ${className}` : ""}`}
       onClick={onClick}
       type={isSubmit ? "submit" : "button"}
+      disabled={disabled}
     >
       {children}
     </button>

@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 
 function CourseCard({ course }) {
   const { title, description, price, imageUrl, sections, courseId } = course;
-  const lessonsCount = sections.reduce(
-    (count, section) => count + section.lessons.length,
-    0,
-  );
+  // const lessonsCount = sections.reduce(
+  //   (count, section) => count + section.lessons.length,
+  //   0,
+  // );
 
   return (
     <li className="h-full">
@@ -19,10 +19,10 @@ function CourseCard({ course }) {
         <div className="flex flex-1 flex-col p-5 sm:p-6">
           <div className="mb-4 flex flex-wrap items-center gap-2 text-xs font-medium text-ink-600">
             <span className="rounded-full bg-secondary-50 px-3 py-1 text-secondary-700">
-              {sections.length} sections
+              1 sections
             </span>
             <span className="rounded-full bg-surface-100 px-3 py-1 text-ink-700">
-              {lessonsCount} lessons
+              1 lessons
             </span>
           </div>
 

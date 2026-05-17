@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-function MainNavMobileMenu({ isMenuOpen, handleCloseMenu, isLogin }) {
+function MainNavMobileMenu({ isMenuOpen, handleCloseMenu, isLogin, isAdmin }) {
   const baseLinkClass =
     "rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200";
 
@@ -22,7 +22,7 @@ function MainNavMobileMenu({ isMenuOpen, handleCloseMenu, isLogin }) {
             >
               Courses
             </NavLink>
-            {isLogin ? (
+            {!isLogin ? (
               <>
                 <NavLink
                   to="/login"
@@ -48,13 +48,15 @@ function MainNavMobileMenu({ isMenuOpen, handleCloseMenu, isLogin }) {
                 >
                   Account
                 </NavLink>
-                <NavLink
-                  to="/dashboard"
-                  className={getLinkClass}
-                  onClick={handleCloseMenu}
-                >
-                  Dashboard
-                </NavLink>
+                {isAdmin && (
+                  <NavLink
+                    to="/dashboard"
+                    className={getLinkClass}
+                    onClick={handleCloseMenu}
+                  >
+                    Dashboard
+                  </NavLink>
+                )}
               </>
             )}
           </div>
