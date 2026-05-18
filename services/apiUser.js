@@ -106,14 +106,41 @@ export async function logoutApi() {
   const res = await fetch(myURL, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
       Authorization: `Bearer ${sessionTokenRaw}`,
     },
     // include cookies so server-side can clear HttpOnly refresh token
     credentials: "include",
   });
   if (!res.ok) {
-    throw new Error("Logout failed");
+    // try to parse JSON error body, fall back to text
+    let errorBody = null;
+    try {
+      errorBody = await res.json();
+    } catch (e) {
+      try {
+        const text = await res.text();
+        errorBody = text || null;
+      } catch (e2) {
+        errorBody = null;
+      }
+    }
+
+    console.error(
+      "Logout API error response:",
+      errorBody,
+      "status:",
+      res.status,
+    );
+
+    const message =
+      (errorBody &&
+        (errorBody.message || errorBody.error || JSON.stringify(errorBody))) ||
+      `Logout failed (status ${res.status})`;
+
+    const err = new Error(message);
+    err.status = res.status;
+    err.body = errorBody;
+    throw err;
   }
 
   localStorage.removeItem("user");
