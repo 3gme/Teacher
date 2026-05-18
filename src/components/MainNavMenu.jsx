@@ -1,5 +1,5 @@
 import { IoLogOut } from "react-icons/io5";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Logo from "./Logo";
 import { logoutApi } from "../../services/apiUser";
 
@@ -13,6 +13,8 @@ function MainNavMenu({
   const baseLinkClass =
     "rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200";
 
+  const navigate = useNavigate();
+
   const getLinkClass = ({ isActive }) =>
     `${baseLinkClass} ${
       isActive
@@ -23,6 +25,7 @@ function MainNavMenu({
   const handleLogout = () => {
     logoutApi();
     handleCloseMenu();
+    navigate("/login");
   };
 
   return (
@@ -113,7 +116,7 @@ function MainNavMenu({
               </NavLink>
               {/* :TODO handle logout */}
               <NavLink
-                to="/account"
+                // to="/login"
                 className={getLinkClass}
                 onClick={handleLogout}
               >
