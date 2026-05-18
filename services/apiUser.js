@@ -101,7 +101,7 @@ export async function refreshTokenApi() {
 }
 
 export async function logoutApi() {
-  const myURL = `${API_BASE_URL}/api/Account/Logout`;
+  const myURL = `${API_BASE_URL}/api/Account/revokeToken`;
   const sessionTokenRaw = localStorage.getItem("sessionToken");
   const res = await fetch(myURL, {
     method: "POST",
