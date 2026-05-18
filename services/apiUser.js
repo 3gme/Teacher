@@ -106,6 +106,7 @@ export async function logoutApi() {
   const res = await fetch(myURL, {
     method: "POST",
     headers: {
+      "Content-Type": "application/json",
       Authorization: `Bearer ${sessionTokenRaw}`,
     },
     // include cookies so server-side can clear HttpOnly refresh token
